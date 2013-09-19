@@ -177,5 +177,10 @@ namespace Realmlist_Changer
                 textBoxWowFile.Text = openFileDialog.FileName;
             }
         }
+
+        private void comboBoxItems_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
+        }
     }
 }

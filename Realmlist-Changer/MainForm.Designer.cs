@@ -48,6 +48,7 @@
             this.comboBoxItems.Name = "comboBoxItems";
             this.comboBoxItems.Size = new System.Drawing.Size(288, 21);
             this.comboBoxItems.TabIndex = 2;
+            this.comboBoxItems.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.comboBoxItems_KeyPress);
             // 
             // buttonAddItem
             // 
