@@ -44,7 +44,7 @@
             // comboBoxItems
             // 
             this.comboBoxItems.FormattingEnabled = true;
-            this.comboBoxItems.Location = new System.Drawing.Point(9, 116);
+            this.comboBoxItems.Location = new System.Drawing.Point(9, 91);
             this.comboBoxItems.Name = "comboBoxItems";
             this.comboBoxItems.Size = new System.Drawing.Size(288, 21);
             this.comboBoxItems.TabIndex = 2;
@@ -52,7 +52,7 @@
             // 
             // buttonAddItem
             // 
-            this.buttonAddItem.Location = new System.Drawing.Point(297, 89);
+            this.buttonAddItem.Location = new System.Drawing.Point(297, 63);
             this.buttonAddItem.Name = "buttonAddItem";
             this.buttonAddItem.Size = new System.Drawing.Size(75, 22);
             this.buttonAddItem.TabIndex = 3;
@@ -62,7 +62,7 @@
             // 
             // textBoxAddItem
             // 
-            this.textBoxAddItem.Location = new System.Drawing.Point(9, 90);
+            this.textBoxAddItem.Location = new System.Drawing.Point(9, 64);
             this.textBoxAddItem.Name = "textBoxAddItem";
             this.textBoxAddItem.Size = new System.Drawing.Size(288, 20);
             this.textBoxAddItem.TabIndex = 4;
@@ -86,7 +86,7 @@
             // 
             // buttonUpdate
             // 
-            this.buttonUpdate.Location = new System.Drawing.Point(9, 143);
+            this.buttonUpdate.Location = new System.Drawing.Point(9, 118);
             this.buttonUpdate.Name = "buttonUpdate";
             this.buttonUpdate.Size = new System.Drawing.Size(80, 23);
             this.buttonUpdate.TabIndex = 7;
@@ -96,7 +96,7 @@
             // 
             // buttonRemove
             // 
-            this.buttonRemove.Location = new System.Drawing.Point(297, 115);
+            this.buttonRemove.Location = new System.Drawing.Point(297, 90);
             this.buttonRemove.Name = "buttonRemove";
             this.buttonRemove.Size = new System.Drawing.Size(75, 23);
             this.buttonRemove.TabIndex = 9;
@@ -107,7 +107,7 @@
             // checkBoxLaunchWow
             // 
             this.checkBoxLaunchWow.AutoSize = true;
-            this.checkBoxLaunchWow.Location = new System.Drawing.Point(208, 149);
+            this.checkBoxLaunchWow.Location = new System.Drawing.Point(208, 122);
             this.checkBoxLaunchWow.Name = "checkBoxLaunchWow";
             this.checkBoxLaunchWow.Size = new System.Drawing.Size(164, 17);
             this.checkBoxLaunchWow.TabIndex = 10;
@@ -136,7 +136,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(384, 173);
+            this.ClientSize = new System.Drawing.Size(384, 149);
             this.Controls.Add(this.buttonSearchWowDirectory);
             this.Controls.Add(this.textBoxWowFile);
             this.Controls.Add(this.checkBoxLaunchWow);
