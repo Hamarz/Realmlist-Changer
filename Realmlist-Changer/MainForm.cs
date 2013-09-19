@@ -140,6 +140,10 @@ namespace Realmlist_Changer
             }
 
             comboBoxItems.Items.Remove(comboBoxItems.SelectedItem);
+            comboBoxItems.SelectedIndex = comboBoxItems.Items.Count > 0 ? 0 : -1;
+
+            if (comboBoxItems.Items.Count == 0)
+                comboBoxItems.Text = String.Empty;
         }
 
         private void checkBoxLaunchWow_CheckedChanged(object sender, EventArgs e)
