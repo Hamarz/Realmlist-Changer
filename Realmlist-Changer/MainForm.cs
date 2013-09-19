@@ -33,7 +33,7 @@ namespace Realmlist_Changer
                 if (splitItems[i] != String.Empty && !String.IsNullOrWhiteSpace(splitItems[i]))
                     comboBoxItems.Items.Add(splitItems[i]);
 
-            comboBoxItems.SelectedIndex = 0;
+            comboBoxItems.SelectedIndex = comboBoxItems.Items.Count > 0 ? 0 : -1;
 
             //! Set the placeholder text
             SendMessage(textBoxRealmlistFile.Handle, EM_SETCUEBANNER, 0, "Realmlist.wtf directory");
