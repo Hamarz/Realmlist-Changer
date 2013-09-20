@@ -6,6 +6,8 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net.NetworkInformation;
+using System.Net.Sockets;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -72,6 +74,12 @@ namespace Realmlist_Changer
             if (textBoxAddItem.Text == String.Empty || String.IsNullOrWhiteSpace(textBoxAddItem.Text))
             {
                 MessageBox.Show("The add item text field was left empty!", "Something went wrong!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (textBoxAddItem.Text.Contains(" "))
+            {
+                MessageBox.Show("The add item text field may not contain any whitespaces!", "Something went wrong!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -181,6 +189,10 @@ namespace Realmlist_Changer
         private void comboBoxItems_KeyPress(object sender, KeyPressEventArgs e)
         {
             e.Handled = true;
+        }
+
+        private void comboBoxItems_SelectedIndexChanged(object sender, EventArgs e)
+        {
         }
     }
 }
