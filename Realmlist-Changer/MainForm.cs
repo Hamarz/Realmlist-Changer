@@ -13,6 +13,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Realmlist_Changer.Properties;
+using System.Net;
+using System.Windows.Markup;
 
 namespace Realmlist_Changer
 {
@@ -191,8 +193,72 @@ namespace Realmlist_Changer
             e.Handled = true;
         }
 
+        private Socket clientSocket;
+        private IPAddress hostAddress;
+
         private void comboBoxItems_SelectedIndexChanged(object sender, EventArgs e)
         {
+            SetTextOfControl(labelOnOrOff, "<connecting...>");
+            labelOnOrOff.ForeColor = Color.Black;
+
+            try
+            {
+                int port = 3724; //! Client port is always 3724 so this is safe
+                hostAddress = Dns.GetHostEntry(comboBoxItems.SelectedItem.ToString()).AddressList[0];
+
+                if (hostAddress.AddressFamily == AddressFamily.InterNetwork)
+                    clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                else if (hostAddress.AddressFamily == AddressFamily.InterNetworkV6)
+                    clientSocket = new Socket(AddressFamily.InterNetworkV6, SocketType.Stream, ProtocolType.Tcp);
+                else
+                    return;
+
+                SocketAsyncEventArgs telnetSocketAsyncEventArgs = new SocketAsyncEventArgs();
+                telnetSocketAsyncEventArgs.RemoteEndPoint = new IPEndPoint(hostAddress, port);
+                telnetSocketAsyncEventArgs.Completed += new EventHandler<SocketAsyncEventArgs>(telnetSocketAsyncEventArgs_Completed);
+                clientSocket.ConnectAsync(telnetSocketAsyncEventArgs);
+            }
+            catch (Exception)
+            {
+                SetSelectedServerState(false);
+            }
+        }
+
+        private void telnetSocketAsyncEventArgs_Completed(object sender, SocketAsyncEventArgs e)
+        {
+            try
+            {
+                if (e.SocketError == SocketError.Success)
+                {
+                    if (e.LastOperation == SocketAsyncOperation.Connect)
+                        SetSelectedServerState(true);
+                }
+                else
+                    SetSelectedServerState(false);
+            }
+            catch (Exception)
+            {
+                SetSelectedServerState(false);
+            }
+        }
+
+        private void SetSelectedServerState(bool online)
+        {
+            SetTextOfControl(labelOnOrOff, online ? "online" : "offline");
+            labelOnOrOff.ForeColor = online ? Color.Chartreuse : Color.Red;
+        }
+
+        private delegate void SetTextOfControlDelegate(Control control, string text);
+
+        private void SetTextOfControl(Control control, string text)
+        {
+            if (control.InvokeRequired)
+            {
+                Invoke(new SetTextOfControlDelegate(SetTextOfControl), new object[] { control, text });
+                return;
+            }
+
+            control.Text = text;
         }
     }
 }
