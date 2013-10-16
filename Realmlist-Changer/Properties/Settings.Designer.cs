@@ -70,5 +70,17 @@ namespace Realmlist_Changer.Properties {
                 this["LaunchWowSelected"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-1")]
+        public int LastSelectedIndex {
+            get {
+                return ((int)(this["LastSelectedIndex"]));
+            }
+            set {
+                this["LastSelectedIndex"] = value;
+            }
+        }
     }
 }

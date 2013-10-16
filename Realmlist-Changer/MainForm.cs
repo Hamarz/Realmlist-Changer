@@ -37,7 +37,7 @@ namespace Realmlist_Changer
                 if (splitItems[i] != String.Empty && !String.IsNullOrWhiteSpace(splitItems[i]))
                     comboBoxItems.Items.Add(splitItems[i]);
 
-            comboBoxItems.SelectedIndex = comboBoxItems.Items.Count > 0 ? 0 : -1;
+            comboBoxItems.SelectedIndex = Settings.Default.LastSelectedIndex;
 
             //! Set the placeholder text
             SendMessage(textBoxRealmlistFile.Handle, EM_SETCUEBANNER, 0, "Realmlist.wtf directory");
@@ -138,6 +138,7 @@ namespace Realmlist_Changer
             Settings.Default.RealmlistDir = textBoxRealmlistFile.Text;
             Settings.Default.WorldOfWarcraftDir = textBoxWowFile.Text;
             Settings.Default.LaunchWowSelected = checkBoxLaunchWow.Checked;
+            Settings.Default.LastSelectedIndex = comboBoxItems.SelectedIndex;
             Settings.Default.Save();
         }
 
