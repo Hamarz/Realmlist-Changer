@@ -148,7 +148,7 @@
             // 
             this.labelOnOrOff.AutoSize = true;
             this.labelOnOrOff.ForeColor = System.Drawing.Color.Black;
-            this.labelOnOrOff.Location = new System.Drawing.Point(141, 123);
+            this.labelOnOrOff.Location = new System.Drawing.Point(139, 123);
             this.labelOnOrOff.Name = "labelOnOrOff";
             this.labelOnOrOff.Size = new System.Drawing.Size(63, 13);
             this.labelOnOrOff.TabIndex = 11;
