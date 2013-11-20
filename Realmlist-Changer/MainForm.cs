@@ -229,13 +229,7 @@ namespace Realmlist_Changer
         {
             try
             {
-                if (e.SocketError == SocketError.Success)
-                {
-                    if (e.LastOperation == SocketAsyncOperation.Connect)
-                        SetSelectedServerState(true);
-                }
-                else
-                    SetSelectedServerState(false);
+                SetSelectedServerState(e.SocketError == SocketError.Success && e.LastOperation == SocketAsyncOperation.Connect);
             }
             catch (Exception)
             {
