@@ -15,14 +15,24 @@ using System.Windows.Forms;
 using Realmlist_Changer.Properties;
 using System.Net;
 using System.Windows.Markup;
+using System.Threading;
 
 namespace Realmlist_Changer
 {
     public partial class FormRealmlistChanger : Form
     {
         private const int EM_SETCUEBANNER = 0x1501;
+        private const uint WM_KEYDOWN = 0x0100;
+        private const uint WM_KEYUP = 0x0101;
+        private const uint WM_CHAR = 0x0102;
+        private const int VK_RETURN = 0x0D;
+        private const int VK_TAB = 0x09;
+
         [DllImport("user32.dll", CharSet = CharSet.Auto)]
         private static extern Int32 SendMessage(IntPtr hWnd, int msg, int wParam, [MarshalAs(UnmanagedType.LPWStr)]string lParam);
+
+        [DllImport("user32.dll")]
+        private static extern IntPtr PostMessage(IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam);
 
         public FormRealmlistChanger()
         {
@@ -42,6 +52,8 @@ namespace Realmlist_Changer
             //! Set the placeholder text
             SendMessage(textBoxRealmlistFile.Handle, EM_SETCUEBANNER, 0, "Realmlist.wtf directory");
             SendMessage(textBoxWowFile.Handle, EM_SETCUEBANNER, 0, "WoW.exe directory");
+            SendMessage(textBoxAccountName.Handle, EM_SETCUEBANNER, 0, "Account name");
+            SendMessage(textBoxAccountPassword.Handle, EM_SETCUEBANNER, 0, "Account password");
 
             textBoxRealmlistFile.Text = Settings.Default.RealmlistDir;
             textBoxWowFile.Text = Settings.Default.WorldOfWarcraftDir;
@@ -119,7 +131,52 @@ namespace Realmlist_Changer
 
                 try
                 {
-                    Process.Start(textBoxWowFile.Text);
+                    Process process = Process.Start(textBoxWowFile.Text);
+
+                    if (String.IsNullOrWhiteSpace(textBoxAccountName.Text) || String.IsNullOrWhiteSpace(textBoxAccountPassword.Text))
+                        return;
+
+                    Thread.Sleep(150);
+
+                    //! Run this code in a new thread so the main form does not freeze up.
+                    new Thread(() =>
+                    {
+                        try
+                        {
+                            Thread.CurrentThread.IsBackground = true;
+
+                            do
+                            {
+                                process.WaitForInputIdle();
+                                process.Refresh();
+                            }
+                            while (process.MainWindowHandle.ToInt32() == 0);
+
+                            Thread.Sleep(500);
+
+                            for (int i = 0; i < textBoxAccountName.Text.Length; i++)
+                            {
+                                PostMessage(process.MainWindowHandle, WM_CHAR, new IntPtr(textBoxAccountName.Text[i]), IntPtr.Zero);
+                                Thread.Sleep(30);
+                            }
+
+                            //! Switch to password field
+                            PostMessage(process.MainWindowHandle, WM_KEYDOWN, new IntPtr(VK_TAB), IntPtr.Zero);
+
+                            for (int i = 0; i < textBoxAccountPassword.Text.Length; i++)
+                            {
+                                PostMessage(process.MainWindowHandle, WM_CHAR, new IntPtr(textBoxAccountPassword.Text[i]), IntPtr.Zero);
+                                Thread.Sleep(30);
+                            }
+
+                            PostMessage(process.MainWindowHandle, WM_KEYDOWN, new IntPtr(VK_RETURN), IntPtr.Zero);
+                            Thread.CurrentThread.Abort();
+                        }
+                        catch
+                        {
+                            Thread.CurrentThread.Abort();
+                        }
+                    }).Start();
                 }
                 catch (Exception ex)
                 {
@@ -194,9 +251,6 @@ namespace Realmlist_Changer
             e.Handled = true;
         }
 
-        private Socket clientSocket;
-        private IPAddress hostAddress;
-
         private void comboBoxItems_SelectedIndexChanged(object sender, EventArgs e)
         {
             SetTextOfControl(labelOnOrOff, "<connecting...>");
@@ -204,8 +258,8 @@ namespace Realmlist_Changer
 
             try
             {
-                int port = 3724; //! Client port is always 3724 so this is safe
-                hostAddress = Dns.GetHostEntry(comboBoxItems.SelectedItem.ToString()).AddressList[0];
+                IPAddress hostAddress = Dns.GetHostEntry(comboBoxItems.SelectedItem.ToString()).AddressList[0];
+                Socket clientSocket;
 
                 if (hostAddress.AddressFamily == AddressFamily.InterNetwork)
                     clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
@@ -215,7 +269,7 @@ namespace Realmlist_Changer
                     return;
 
                 SocketAsyncEventArgs telnetSocketAsyncEventArgs = new SocketAsyncEventArgs();
-                telnetSocketAsyncEventArgs.RemoteEndPoint = new IPEndPoint(hostAddress, port);
+                telnetSocketAsyncEventArgs.RemoteEndPoint = new IPEndPoint(hostAddress, 3724); //! Client port is always 3724 so this is safe
                 telnetSocketAsyncEventArgs.Completed += new EventHandler<SocketAsyncEventArgs>(telnetSocketAsyncEventArgs_Completed);
                 clientSocket.ConnectAsync(telnetSocketAsyncEventArgs);
             }

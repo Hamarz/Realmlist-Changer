@@ -41,6 +41,8 @@
             this.buttonSearchWowDirectory = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.labelOnOrOff = new System.Windows.Forms.Label();
+            this.textBoxAccountName = new System.Windows.Forms.TextBox();
+            this.textBoxAccountPassword = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // comboBoxItems
@@ -89,7 +91,7 @@
             // 
             // buttonUpdate
             // 
-            this.buttonUpdate.Location = new System.Drawing.Point(9, 118);
+            this.buttonUpdate.Location = new System.Drawing.Point(9, 141);
             this.buttonUpdate.Name = "buttonUpdate";
             this.buttonUpdate.Size = new System.Drawing.Size(80, 23);
             this.buttonUpdate.TabIndex = 8;
@@ -110,7 +112,7 @@
             // checkBoxLaunchWow
             // 
             this.checkBoxLaunchWow.AutoSize = true;
-            this.checkBoxLaunchWow.Location = new System.Drawing.Point(227, 122);
+            this.checkBoxLaunchWow.Location = new System.Drawing.Point(227, 146);
             this.checkBoxLaunchWow.Name = "checkBoxLaunchWow";
             this.checkBoxLaunchWow.Size = new System.Drawing.Size(145, 17);
             this.checkBoxLaunchWow.TabIndex = 9;
@@ -138,7 +140,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(95, 123);
+            this.label1.Location = new System.Drawing.Point(95, 146);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(51, 13);
             this.label1.TabIndex = 10;
@@ -148,17 +150,34 @@
             // 
             this.labelOnOrOff.AutoSize = true;
             this.labelOnOrOff.ForeColor = System.Drawing.Color.Black;
-            this.labelOnOrOff.Location = new System.Drawing.Point(139, 123);
+            this.labelOnOrOff.Location = new System.Drawing.Point(139, 146);
             this.labelOnOrOff.Name = "labelOnOrOff";
             this.labelOnOrOff.Size = new System.Drawing.Size(63, 13);
             this.labelOnOrOff.TabIndex = 11;
             this.labelOnOrOff.Text = "<unknown>";
             // 
+            // textBoxAccountName
+            // 
+            this.textBoxAccountName.Location = new System.Drawing.Point(9, 118);
+            this.textBoxAccountName.Name = "textBoxAccountName";
+            this.textBoxAccountName.Size = new System.Drawing.Size(181, 20);
+            this.textBoxAccountName.TabIndex = 12;
+            // 
+            // textBoxAccountPassword
+            // 
+            this.textBoxAccountPassword.Location = new System.Drawing.Point(191, 118);
+            this.textBoxAccountPassword.Name = "textBoxAccountPassword";
+            this.textBoxAccountPassword.PasswordChar = '*';
+            this.textBoxAccountPassword.Size = new System.Drawing.Size(181, 20);
+            this.textBoxAccountPassword.TabIndex = 12;
+            // 
             // FormRealmlistChanger
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(384, 149);
+            this.ClientSize = new System.Drawing.Size(384, 171);
+            this.Controls.Add(this.textBoxAccountPassword);
+            this.Controls.Add(this.textBoxAccountName);
             this.Controls.Add(this.labelOnOrOff);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.buttonSearchWowDirectory);
@@ -198,6 +217,8 @@
         private System.Windows.Forms.Button buttonSearchWowDirectory;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label labelOnOrOff;
+        private System.Windows.Forms.TextBox textBoxAccountName;
+        private System.Windows.Forms.TextBox textBoxAccountPassword;
     }
 }
 
