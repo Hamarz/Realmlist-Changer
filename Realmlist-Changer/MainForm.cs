@@ -126,7 +126,7 @@ namespace Realmlist_Changer
                 if (String.IsNullOrWhiteSpace(textBoxAccountName.Text) || String.IsNullOrWhiteSpace(textBoxAccountPassword.Text))
                     return;
 
-                Thread.Sleep(150);
+                Thread.Sleep(300);
 
                 //! Run this code in a new thread so the main form does not freeze up.
                 new Thread(() =>
@@ -142,7 +142,7 @@ namespace Realmlist_Changer
                         }
                         while (process.MainWindowHandle.ToInt32() == 0);
 
-                        Thread.Sleep(500);
+                        Thread.Sleep(800);
 
                         for (int i = 0; i < textBoxAccountName.Text.Length; i++)
                         {
