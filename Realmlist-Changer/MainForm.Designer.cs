@@ -93,7 +93,7 @@
             this.buttonLaunchWow.Location = new System.Drawing.Point(273, 141);
             this.buttonLaunchWow.Name = "buttonLaunchWow";
             this.buttonLaunchWow.Size = new System.Drawing.Size(99, 23);
-            this.buttonLaunchWow.TabIndex = 8;
+            this.buttonLaunchWow.TabIndex = 10;
             this.buttonLaunchWow.Text = "Launch WoW!";
             this.buttonLaunchWow.UseVisualStyleBackColor = true;
             this.buttonLaunchWow.Click += new System.EventHandler(this.buttonLaunchWow_Click);
@@ -149,7 +149,7 @@
             this.textBoxAccountName.Location = new System.Drawing.Point(9, 118);
             this.textBoxAccountName.Name = "textBoxAccountName";
             this.textBoxAccountName.Size = new System.Drawing.Size(181, 20);
-            this.textBoxAccountName.TabIndex = 12;
+            this.textBoxAccountName.TabIndex = 8;
             // 
             // textBoxAccountPassword
             // 
@@ -157,9 +157,9 @@
             this.textBoxAccountPassword.Name = "textBoxAccountPassword";
             this.textBoxAccountPassword.PasswordChar = '*';
             this.textBoxAccountPassword.Size = new System.Drawing.Size(181, 20);
-            this.textBoxAccountPassword.TabIndex = 12;
+            this.textBoxAccountPassword.TabIndex = 9;
             // 
-            // FormRealmlistChanger
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -181,10 +181,10 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.MaximizeBox = false;
-            this.Name = "FormRealmlistChanger";
+            this.Name = "MainForm";
             this.Text = "Realmlist Changer";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormRealmlistChanger_FormClosing);
-            this.Load += new System.EventHandler(this.FormRealmlistChanger_Load);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

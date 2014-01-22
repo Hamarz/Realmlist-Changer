@@ -39,7 +39,7 @@ namespace Realmlist_Changer
             InitializeComponent();
         }
 
-        private void FormRealmlistChanger_Load(object sender, EventArgs e)
+        private void MainForm_Load(object sender, EventArgs e)
         {
             string[] splitItems = Settings.Default.SavedItems.Split(';');
 
@@ -173,7 +173,7 @@ namespace Realmlist_Changer
             }
         }
 
-        private void FormRealmlistChanger_FormClosing(object sender, FormClosingEventArgs e)
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             Settings.Default.SavedItems = String.Empty;
 
