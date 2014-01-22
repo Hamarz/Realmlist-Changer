@@ -16,6 +16,7 @@ using Realmlist_Changer.Properties;
 using System.Net;
 using System.Windows.Markup;
 using System.Threading;
+using System.Security.Cryptography;
 
 namespace Realmlist_Changer
 {
@@ -58,7 +59,7 @@ namespace Realmlist_Changer
             textBoxRealmlistFile.Text = Settings.Default.RealmlistDir;
             textBoxWowFile.Text = Settings.Default.WorldOfWarcraftDir;
             textBoxAccountName.Text = Settings.Default.AccountName;
-            textBoxAccountPassword.Text = Settings.Default.AccountPassword;
+            textBoxAccountPassword.Text = GetPasswordFromSettings();
         }
 
         private void buttonSearchDirectory_Click(object sender, EventArgs e)
@@ -185,7 +186,26 @@ namespace Realmlist_Changer
             Settings.Default.LastSelectedIndex = comboBoxItems.SelectedIndex;
             Settings.Default.AccountName = textBoxAccountName.Text;
             Settings.Default.AccountPassword = textBoxAccountPassword.Text;
+
+            RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider();
+            byte[] buffer = new byte[1024];
+            rng.GetBytes(buffer);
+            string salt = BitConverter.ToString(buffer);
+            rng.Dispose();
+            Settings.Default.Entropy = salt;
+            Settings.Default.AccountPassword = textBoxAccountPassword.Text.Length == 0 ? String.Empty : textBoxAccountPassword.Text.ToSecureString().EncryptString(Encoding.Unicode.GetBytes(salt));
+            
             Settings.Default.Save();
+        }
+
+        public string GetPasswordFromSettings()
+        {
+            string password = Settings.Default.AccountPassword;
+
+            if (password.Length > 150)
+                password = password.DecryptString(Encoding.Unicode.GetBytes(Settings.Default.Entropy)).ToInsecureString();
+
+            return password;
         }
 
         private void buttonRemove_Click(object sender, EventArgs e)
