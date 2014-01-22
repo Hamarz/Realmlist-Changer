@@ -19,7 +19,7 @@ using System.Threading;
 
 namespace Realmlist_Changer
 {
-    public partial class FormRealmlistChanger : Form
+    public partial class MainForm : Form
     {
         private const int EM_SETCUEBANNER = 0x1501;
         private const uint WM_KEYDOWN = 0x0100;
@@ -34,7 +34,7 @@ namespace Realmlist_Changer
         [DllImport("user32.dll")]
         private static extern IntPtr PostMessage(IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam);
 
-        public FormRealmlistChanger()
+        public MainForm()
         {
             InitializeComponent();
         }

@@ -1,6 +1,6 @@
 ﻿namespace Realmlist_Changer
 {
-    partial class FormRealmlistChanger
+    partial class MainForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormRealmlistChanger));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.comboBoxItems = new System.Windows.Forms.ComboBox();
             this.buttonAddItem = new System.Windows.Forms.Button();
             this.textBoxAddItem = new System.Windows.Forms.TextBox();

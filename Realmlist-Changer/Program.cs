@@ -29,7 +29,7 @@ namespace Realmlist_Changer
                 {
                     Application.EnableVisualStyles();
                     Application.SetCompatibleTextRenderingDefault(false);
-                    Application.Run(new FormRealmlistChanger());
+                    Application.Run(new MainForm());
                 }
                 else
                 {
