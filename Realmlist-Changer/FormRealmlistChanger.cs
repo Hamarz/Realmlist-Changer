@@ -57,6 +57,8 @@ namespace Realmlist_Changer
 
             textBoxRealmlistFile.Text = Settings.Default.RealmlistDir;
             textBoxWowFile.Text = Settings.Default.WorldOfWarcraftDir;
+            textBoxAccountName.Text = Settings.Default.AccountName;
+            textBoxAccountPassword.Text = Settings.Default.AccountPassword;
         }
 
         private void buttonSearchDirectory_Click(object sender, EventArgs e)
@@ -181,6 +183,8 @@ namespace Realmlist_Changer
             Settings.Default.RealmlistDir = textBoxRealmlistFile.Text;
             Settings.Default.WorldOfWarcraftDir = textBoxWowFile.Text;
             Settings.Default.LastSelectedIndex = comboBoxItems.SelectedIndex;
+            Settings.Default.AccountName = textBoxAccountName.Text;
+            Settings.Default.AccountPassword = textBoxAccountPassword.Text;
             Settings.Default.Save();
         }
 

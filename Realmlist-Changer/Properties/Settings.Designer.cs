@@ -74,12 +74,24 @@ namespace Realmlist_Changer.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string ExistingAccounts {
+        public string AccountPassword {
             get {
-                return ((string)(this["ExistingAccounts"]));
+                return ((string)(this["AccountPassword"]));
             }
             set {
-                this["ExistingAccounts"] = value;
+                this["AccountPassword"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string AccountName {
+            get {
+                return ((string)(this["AccountName"]));
+            }
+            set {
+                this["AccountName"] = value;
             }
         }
     }
