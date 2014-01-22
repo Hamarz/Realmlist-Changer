@@ -11,9 +11,6 @@
     <Setting Name="WorldOfWarcraftDir" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="LaunchWowSelected" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
     <Setting Name="LastSelectedIndex" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">-1</Value>
     </Setting>

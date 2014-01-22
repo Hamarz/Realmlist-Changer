@@ -57,7 +57,6 @@ namespace Realmlist_Changer
 
             textBoxRealmlistFile.Text = Settings.Default.RealmlistDir;
             textBoxWowFile.Text = Settings.Default.WorldOfWarcraftDir;
-            checkBoxLaunchWow.Checked = Settings.Default.LaunchWowSelected;
         }
 
         private void buttonSearchDirectory_Click(object sender, EventArgs e)
@@ -110,7 +109,7 @@ namespace Realmlist_Changer
             textBoxAddItem.Text = String.Empty;
         }
 
-        private void buttonUpdate_Click(object sender, EventArgs e)
+        private void buttonLaunchWow_Click(object sender, EventArgs e)
         {
             if (!File.Exists(textBoxRealmlistFile.Text))
             {
@@ -118,70 +117,67 @@ namespace Realmlist_Changer
                 return;
             }
 
+            if (!File.Exists(textBoxWowFile.Text))
+            {
+                MessageBox.Show("The WoW.exe file could not be located!", "Something went wrong!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             using (var outputFile = new StreamWriter(textBoxRealmlistFile.Text, false))
                 outputFile.WriteLine("set realmlist " + comboBoxItems.SelectedItem);
 
-            if (checkBoxLaunchWow.Checked)
+            try
             {
-                if (!File.Exists(textBoxWowFile.Text))
-                {
-                    MessageBox.Show("The WoW.exe file could not be located!", "Something went wrong!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Process process = Process.Start(textBoxWowFile.Text);
+
+                if (String.IsNullOrWhiteSpace(textBoxAccountName.Text) || String.IsNullOrWhiteSpace(textBoxAccountPassword.Text))
                     return;
-                }
 
-                try
+                Thread.Sleep(150);
+
+                //! Run this code in a new thread so the main form does not freeze up.
+                new Thread(() =>
                 {
-                    Process process = Process.Start(textBoxWowFile.Text);
-
-                    if (String.IsNullOrWhiteSpace(textBoxAccountName.Text) || String.IsNullOrWhiteSpace(textBoxAccountPassword.Text))
-                        return;
-
-                    Thread.Sleep(150);
-
-                    //! Run this code in a new thread so the main form does not freeze up.
-                    new Thread(() =>
+                    try
                     {
-                        try
+                        Thread.CurrentThread.IsBackground = true;
+
+                        do
                         {
-                            Thread.CurrentThread.IsBackground = true;
-
-                            do
-                            {
-                                process.WaitForInputIdle();
-                                process.Refresh();
-                            }
-                            while (process.MainWindowHandle.ToInt32() == 0);
-
-                            Thread.Sleep(500);
-
-                            for (int i = 0; i < textBoxAccountName.Text.Length; i++)
-                            {
-                                PostMessage(process.MainWindowHandle, WM_CHAR, new IntPtr(textBoxAccountName.Text[i]), IntPtr.Zero);
-                                Thread.Sleep(30);
-                            }
-
-                            //! Switch to password field
-                            PostMessage(process.MainWindowHandle, WM_KEYDOWN, new IntPtr(VK_TAB), IntPtr.Zero);
-
-                            for (int i = 0; i < textBoxAccountPassword.Text.Length; i++)
-                            {
-                                PostMessage(process.MainWindowHandle, WM_CHAR, new IntPtr(textBoxAccountPassword.Text[i]), IntPtr.Zero);
-                                Thread.Sleep(30);
-                            }
-
-                            PostMessage(process.MainWindowHandle, WM_KEYDOWN, new IntPtr(VK_RETURN), IntPtr.Zero);
-                            Thread.CurrentThread.Abort();
+                            process.WaitForInputIdle();
+                            process.Refresh();
                         }
-                        catch
+                        while (process.MainWindowHandle.ToInt32() == 0);
+
+                        Thread.Sleep(500);
+
+                        for (int i = 0; i < textBoxAccountName.Text.Length; i++)
                         {
-                            Thread.CurrentThread.Abort();
+                            PostMessage(process.MainWindowHandle, WM_CHAR, new IntPtr(textBoxAccountName.Text[i]), IntPtr.Zero);
+                            Thread.Sleep(30);
                         }
-                    }).Start();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message, "Something went wrong!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+
+                        //! Switch to password field
+                        PostMessage(process.MainWindowHandle, WM_KEYDOWN, new IntPtr(VK_TAB), IntPtr.Zero);
+
+                        for (int i = 0; i < textBoxAccountPassword.Text.Length; i++)
+                        {
+                            PostMessage(process.MainWindowHandle, WM_CHAR, new IntPtr(textBoxAccountPassword.Text[i]), IntPtr.Zero);
+                            Thread.Sleep(30);
+                        }
+
+                        PostMessage(process.MainWindowHandle, WM_KEYDOWN, new IntPtr(VK_RETURN), IntPtr.Zero);
+                        Thread.CurrentThread.Abort();
+                    }
+                    catch
+                    {
+                        Thread.CurrentThread.Abort();
+                    }
+                }).Start();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Something went wrong!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -194,7 +190,6 @@ namespace Realmlist_Changer
 
             Settings.Default.RealmlistDir = textBoxRealmlistFile.Text;
             Settings.Default.WorldOfWarcraftDir = textBoxWowFile.Text;
-            Settings.Default.LaunchWowSelected = checkBoxLaunchWow.Checked;
             Settings.Default.LastSelectedIndex = comboBoxItems.SelectedIndex;
             Settings.Default.Save();
         }
@@ -212,15 +207,6 @@ namespace Realmlist_Changer
 
             if (comboBoxItems.Items.Count == 0)
                 comboBoxItems.Text = String.Empty;
-        }
-
-        private void checkBoxLaunchWow_CheckedChanged(object sender, EventArgs e)
-        {
-            if (checkBoxLaunchWow.Checked && (textBoxWowFile.Text == String.Empty || String.IsNullOrWhiteSpace(textBoxWowFile.Text)))
-            {
-                MessageBox.Show("You have no wow directory selected to launch!", "Something went wrong!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                checkBoxLaunchWow.Checked = false;
-            }
         }
 
         private void buttonSearchWowDirectory_Click(object sender, EventArgs e)

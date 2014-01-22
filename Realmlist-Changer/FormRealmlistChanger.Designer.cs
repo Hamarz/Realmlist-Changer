@@ -34,9 +34,8 @@
             this.textBoxAddItem = new System.Windows.Forms.TextBox();
             this.textBoxRealmlistFile = new System.Windows.Forms.TextBox();
             this.buttonSearchDirectory = new System.Windows.Forms.Button();
-            this.buttonUpdate = new System.Windows.Forms.Button();
+            this.buttonLaunchWow = new System.Windows.Forms.Button();
             this.buttonRemove = new System.Windows.Forms.Button();
-            this.checkBoxLaunchWow = new System.Windows.Forms.CheckBox();
             this.textBoxWowFile = new System.Windows.Forms.TextBox();
             this.buttonSearchWowDirectory = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -89,15 +88,15 @@
             this.buttonSearchDirectory.UseVisualStyleBackColor = true;
             this.buttonSearchDirectory.Click += new System.EventHandler(this.buttonSearchDirectory_Click);
             // 
-            // buttonUpdate
+            // buttonLaunchWow
             // 
-            this.buttonUpdate.Location = new System.Drawing.Point(9, 141);
-            this.buttonUpdate.Name = "buttonUpdate";
-            this.buttonUpdate.Size = new System.Drawing.Size(80, 23);
-            this.buttonUpdate.TabIndex = 8;
-            this.buttonUpdate.Text = "Use Selected";
-            this.buttonUpdate.UseVisualStyleBackColor = true;
-            this.buttonUpdate.Click += new System.EventHandler(this.buttonUpdate_Click);
+            this.buttonLaunchWow.Location = new System.Drawing.Point(273, 141);
+            this.buttonLaunchWow.Name = "buttonLaunchWow";
+            this.buttonLaunchWow.Size = new System.Drawing.Size(99, 23);
+            this.buttonLaunchWow.TabIndex = 8;
+            this.buttonLaunchWow.Text = "Launch WoW!";
+            this.buttonLaunchWow.UseVisualStyleBackColor = true;
+            this.buttonLaunchWow.Click += new System.EventHandler(this.buttonLaunchWow_Click);
             // 
             // buttonRemove
             // 
@@ -108,17 +107,6 @@
             this.buttonRemove.Text = "Remove";
             this.buttonRemove.UseVisualStyleBackColor = true;
             this.buttonRemove.Click += new System.EventHandler(this.buttonRemove_Click);
-            // 
-            // checkBoxLaunchWow
-            // 
-            this.checkBoxLaunchWow.AutoSize = true;
-            this.checkBoxLaunchWow.Location = new System.Drawing.Point(227, 146);
-            this.checkBoxLaunchWow.Name = "checkBoxLaunchWow";
-            this.checkBoxLaunchWow.Size = new System.Drawing.Size(145, 17);
-            this.checkBoxLaunchWow.TabIndex = 9;
-            this.checkBoxLaunchWow.Text = "Launch WoW afterwards";
-            this.checkBoxLaunchWow.UseVisualStyleBackColor = true;
-            this.checkBoxLaunchWow.CheckedChanged += new System.EventHandler(this.checkBoxLaunchWow_CheckedChanged);
             // 
             // textBoxWowFile
             // 
@@ -140,17 +128,17 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(95, 146);
+            this.label1.Location = new System.Drawing.Point(12, 146);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(51, 13);
+            this.label1.Size = new System.Drawing.Size(82, 13);
             this.label1.TabIndex = 10;
-            this.label1.Text = "Server is ";
+            this.label1.Text = "Server status is ";
             // 
             // labelOnOrOff
             // 
             this.labelOnOrOff.AutoSize = true;
             this.labelOnOrOff.ForeColor = System.Drawing.Color.Black;
-            this.labelOnOrOff.Location = new System.Drawing.Point(139, 146);
+            this.labelOnOrOff.Location = new System.Drawing.Point(90, 146);
             this.labelOnOrOff.Name = "labelOnOrOff";
             this.labelOnOrOff.Size = new System.Drawing.Size(63, 13);
             this.labelOnOrOff.TabIndex = 11;
@@ -182,9 +170,8 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.buttonSearchWowDirectory);
             this.Controls.Add(this.textBoxWowFile);
-            this.Controls.Add(this.checkBoxLaunchWow);
             this.Controls.Add(this.buttonRemove);
-            this.Controls.Add(this.buttonUpdate);
+            this.Controls.Add(this.buttonLaunchWow);
             this.Controls.Add(this.buttonSearchDirectory);
             this.Controls.Add(this.textBoxRealmlistFile);
             this.Controls.Add(this.textBoxAddItem);
@@ -210,9 +197,8 @@
         private System.Windows.Forms.TextBox textBoxAddItem;
         private System.Windows.Forms.TextBox textBoxRealmlistFile;
         private System.Windows.Forms.Button buttonSearchDirectory;
-        private System.Windows.Forms.Button buttonUpdate;
+        private System.Windows.Forms.Button buttonLaunchWow;
         private System.Windows.Forms.Button buttonRemove;
-        private System.Windows.Forms.CheckBox checkBoxLaunchWow;
         private System.Windows.Forms.TextBox textBoxWowFile;
         private System.Windows.Forms.Button buttonSearchWowDirectory;
         private System.Windows.Forms.Label label1;
