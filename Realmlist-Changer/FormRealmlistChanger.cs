@@ -61,7 +61,6 @@ namespace Realmlist_Changer
 
         private void buttonSearchDirectory_Click(object sender, EventArgs e)
         {
-        OpenFileDialogGoto:
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "Wtf files (*.wtf*)|*.wtf*";
             openFileDialog.FileName = "";
@@ -70,16 +69,7 @@ namespace Realmlist_Changer
                 openFileDialog.InitialDirectory = textBoxRealmlistFile.Text;
 
             if (openFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                //! Shouldn't be possible, but still
-                if (Path.GetExtension(openFileDialog.FileName) != ".wtf")
-                {
-                    MessageBox.Show("The extension of the selected file has to be '.wtf'!", "Something went wrong!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    goto OpenFileDialogGoto;
-                }
-
                 textBoxRealmlistFile.Text = openFileDialog.FileName;
-            }
         }
 
         private void buttonAddItem_Click(object sender, EventArgs e)
@@ -211,7 +201,6 @@ namespace Realmlist_Changer
 
         private void buttonSearchWowDirectory_Click(object sender, EventArgs e)
         {
-        OpenFileDialogGoto:
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "Exe files (*.exe*)|*.exe*";
             openFileDialog.FileName = "";
@@ -220,16 +209,7 @@ namespace Realmlist_Changer
                 openFileDialog.InitialDirectory = textBoxWowFile.Text;
 
             if (openFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                //! Shouldn't be possible, but still
-                if (Path.GetExtension(openFileDialog.FileName) != ".exe")
-                {
-                    MessageBox.Show("The extension of the selected file has to be '.exe'!", "Something went wrong!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    goto OpenFileDialogGoto;
-                }
-
                 textBoxWowFile.Text = openFileDialog.FileName;
-            }
         }
 
         private void comboBoxItems_KeyPress(object sender, KeyPressEventArgs e)
