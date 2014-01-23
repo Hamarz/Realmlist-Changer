@@ -17,6 +17,8 @@ using System.Net;
 using System.Windows.Markup;
 using System.Threading;
 using System.Security.Cryptography;
+using System.Xml;
+using System.Xml.Linq;
 
 namespace Realmlist_Changer
 {
@@ -34,6 +36,9 @@ namespace Realmlist_Changer
 
         [DllImport("user32.dll")]
         private static extern IntPtr PostMessage(IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam);
+
+        private Dictionary<string /* realmlist */, Account /* accountInfo */> realmlists = new Dictionary<string /* realmlist */, Account /* accountInfo */>();
+        private string xmlDir = Environment.SpecialFolder.ApplicationData + @"\realmlist-changer.xml";
 
         public MainForm()
         {
@@ -60,6 +65,25 @@ namespace Realmlist_Changer
             textBoxWowFile.Text = Settings.Default.WorldOfWarcraftDir;
             textBoxAccountName.Text = Settings.Default.AccountName;
             textBoxAccountPassword.Text = GetPasswordFromSettings();
+
+            if (File.Exists(xmlDir))
+            {
+                XElement xml = XElement.Load(xmlDir);
+
+                if (xml != null)
+                {
+                    foreach (XElement realmlistElements in xml.Elements())
+                    {
+                        foreach (XElement accountElements in realmlistElements.Elements())
+                        {
+                            //XElement accountElement = realmlistElements.Elements();
+                            MessageBox.Show(accountElements.Value);
+                        }
+                    }
+                }
+            }
+            else
+                MessageBox.Show("");
         }
 
         private void buttonSearchDirectory_Click(object sender, EventArgs e)
@@ -77,13 +101,13 @@ namespace Realmlist_Changer
 
         private void buttonAddItem_Click(object sender, EventArgs e)
         {
-            if (textBoxAddItem.Text == String.Empty || String.IsNullOrWhiteSpace(textBoxAddItem.Text))
+            if (comboBoxItems.Text == String.Empty || String.IsNullOrWhiteSpace(comboBoxItems.Text))
             {
                 MessageBox.Show("The add item text field was left empty!", "Something went wrong!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            if (textBoxAddItem.Text.Contains(" "))
+            if (comboBoxItems.Text.Contains(" "))
             {
                 MessageBox.Show("The add item text field may not contain any whitespaces!", "Something went wrong!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -91,15 +115,15 @@ namespace Realmlist_Changer
 
             foreach (string item in comboBoxItems.Items)
             {
-                if (item == textBoxAddItem.Text)
+                if (item == comboBoxItems.Text)
                 {
                     MessageBox.Show("The item already exists!", "Something went wrong!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
             }
 
-            comboBoxItems.Items.Add(textBoxAddItem.Text);
-            textBoxAddItem.Text = String.Empty;
+            int selectedIndex = comboBoxItems.Items.Add(comboBoxItems.Text);
+            comboBoxItems.SelectedIndex = selectedIndex;
         }
 
         private void buttonLaunchWow_Click(object sender, EventArgs e)
@@ -194,7 +218,17 @@ namespace Realmlist_Changer
             rng.Dispose();
             Settings.Default.Entropy = salt;
             Settings.Default.AccountPassword = textBoxAccountPassword.Text.Length == 0 ? String.Empty : textBoxAccountPassword.Text.ToSecureString().EncryptString(Encoding.Unicode.GetBytes(salt));
-            
+
+            foreach (string realmlist in realmlists.Keys)
+            {
+                Account acc = realmlists[realmlist];
+
+                XElement xml = new XElement("realm", new XAttribute("name", realmlist),
+                                new XElement("accountname", acc.accountName),
+                                new XElement("accountpassword", acc.accountPassword));
+                xml.Save(xmlDir);
+            }
+
             Settings.Default.Save();
         }
 
@@ -216,11 +250,31 @@ namespace Realmlist_Changer
                 return;
             }
 
+            realmlists.Remove(comboBoxItems.SelectedItem.ToString());
             comboBoxItems.Items.Remove(comboBoxItems.SelectedItem);
             comboBoxItems.SelectedIndex = comboBoxItems.Items.Count > 0 ? 0 : -1;
 
             if (comboBoxItems.Items.Count == 0)
                 comboBoxItems.Text = String.Empty;
+        }
+
+        private void buttonAdd_Click(object sender, EventArgs e)
+        {
+            if (String.IsNullOrWhiteSpace(comboBoxItems.Text))
+            {
+                MessageBox.Show("The given realmlist is incorrect!", "Something went wrong!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (realmlists.ContainsKey(comboBoxItems.Text))
+            {
+                MessageBox.Show("The given realmlist already exists!", "Something went wrong!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            comboBoxItems.Items.Add(comboBoxItems.Text);
+            comboBoxItems.SelectedIndex = comboBoxItems.Items.Count - 1;
+            realmlists.Add(comboBoxItems.Text, new Account(textBoxAccountName.Text, textBoxAccountPassword.Text));
         }
 
         private void buttonSearchWowDirectory_Click(object sender, EventArgs e)
@@ -236,15 +290,11 @@ namespace Realmlist_Changer
                 textBoxWowFile.Text = openFileDialog.FileName;
         }
 
-        private void comboBoxItems_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            e.Handled = true;
-        }
-
         private void comboBoxItems_SelectedIndexChanged(object sender, EventArgs e)
         {
             SetTextOfControl(labelOnOrOff, "<connecting...>");
             labelOnOrOff.ForeColor = Color.Black;
+            labelOnOrOff.Update();
 
             try
             {
