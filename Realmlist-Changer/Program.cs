@@ -39,7 +39,6 @@ namespace Realmlist_Changer
                     {
                         if (process.Id != current.Id)
                         {
-                            MessageBox.Show("Setting foreground!");
                             SetForegroundWindow(process.MainWindowHandle);
                             break;
                         }
