@@ -38,7 +38,8 @@ namespace Realmlist_Changer
         private static extern IntPtr PostMessage(IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam);
 
         private Dictionary<string /* realmlist */, Account /* accountInfo */> realmlists = new Dictionary<string /* realmlist */, Account /* accountInfo */>();
-        private string xmlDir = Environment.SpecialFolder.ApplicationData + @"\realmlist-changer.xml";
+        private string xmlDir = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\Realmlist-Changer\";
+        private string xmlDirFile = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\Realmlist-Changer\realmlist-changer.xml";
 
         public MainForm()
         {
@@ -66,24 +67,40 @@ namespace Realmlist_Changer
             textBoxAccountName.Text = Settings.Default.AccountName;
             textBoxAccountPassword.Text = GetPasswordFromSettings();
 
-            if (File.Exists(xmlDir))
+            if (File.Exists(xmlDirFile))
             {
-                XElement xml = XElement.Load(xmlDir);
-
-                if (xml != null)
+                using (StringReader stringReader = new StringReader(File.ReadAllText(xmlDirFile)))
                 {
-                    foreach (XElement realmlistElements in xml.Elements())
+                    using (XmlTextReader reader = new XmlTextReader(stringReader))
                     {
-                        foreach (XElement accountElements in realmlistElements.Elements())
+                        string realmlist = String.Empty;
+                        Account account = new Account(String.Empty, String.Empty);
+
+                        while (reader.Read())
                         {
-                            //XElement accountElement = realmlistElements.Elements();
-                            MessageBox.Show(accountElements.Value);
+                            if (reader.IsStartElement())
+                            {
+                                switch (reader.Name)
+                                {
+                                    case "realm":
+                                        realmlist = reader["realmlist"];
+                                        break;
+                                    case "accountname":
+                                        account.accountName = reader.ReadString();
+                                        break;
+                                    case "accountpassword":
+                                        account.accountPassword = reader.ReadString();
+
+                                        realmlists.Add(realmlist, account);
+                                        realmlist = String.Empty;
+                                        account = new Account(String.Empty, String.Empty);
+                                        break;
+                                }
+                            }
                         }
                     }
                 }
             }
-            else
-                MessageBox.Show("");
         }
 
         private void buttonSearchDirectory_Click(object sender, EventArgs e)
@@ -219,14 +236,31 @@ namespace Realmlist_Changer
             Settings.Default.Entropy = salt;
             Settings.Default.AccountPassword = textBoxAccountPassword.Text.Length == 0 ? String.Empty : textBoxAccountPassword.Text.ToSecureString().EncryptString(Encoding.Unicode.GetBytes(salt));
 
-            foreach (string realmlist in realmlists.Keys)
-            {
-                Account acc = realmlists[realmlist];
+            if (!Directory.Exists(xmlDir))
+                Directory.CreateDirectory(xmlDir);
 
-                XElement xml = new XElement("realm", new XAttribute("name", realmlist),
-                                new XElement("accountname", acc.accountName),
-                                new XElement("accountpassword", acc.accountPassword));
-                xml.Save(xmlDir);
+            XmlWriterSettings settings = new XmlWriterSettings { Indent = true, Encoding = Encoding.UTF8 };
+
+            using (XmlWriter writer = XmlWriter.Create(xmlDirFile, settings))
+            {
+                //writer.Settings.OmitXmlDeclaration = true;
+                //writer.Settings.Indent = true;
+                //writer.Settings.NewLineOnAttributes = true;
+                writer.WriteStartDocument();
+                writer.WriteStartElement("realms");
+
+                foreach (string realmlist in realmlists.Keys)
+                {
+                    Account acc = realmlists[realmlist];
+                    writer.WriteStartElement("realm");
+                    writer.WriteAttributeString("realmlist", realmlist);
+                    writer.WriteElementString("accountname", acc.accountName);
+                    writer.WriteElementString("accountpassword", acc.accountPassword);
+                    writer.WriteEndElement();
+                }
+
+                writer.WriteEndElement();
+                writer.WriteEndDocument();
             }
 
             Settings.Default.Save();
@@ -292,13 +326,18 @@ namespace Realmlist_Changer
 
         private void comboBoxItems_SelectedIndexChanged(object sender, EventArgs e)
         {
+            string selectedItem = comboBoxItems.SelectedItem.ToString();
+
+            if (!realmlists.ContainsKey(selectedItem))
+                return;
+
             SetTextOfControl(labelOnOrOff, "<connecting...>");
             labelOnOrOff.ForeColor = Color.Black;
             labelOnOrOff.Update();
 
             try
             {
-                IPAddress hostAddress = Dns.GetHostEntry(comboBoxItems.SelectedItem.ToString()).AddressList[0];
+                IPAddress hostAddress = Dns.GetHostEntry(selectedItem).AddressList[0];
                 Socket clientSocket;
 
                 if (hostAddress.AddressFamily == AddressFamily.InterNetwork)
@@ -312,10 +351,14 @@ namespace Realmlist_Changer
                 telnetSocketAsyncEventArgs.RemoteEndPoint = new IPEndPoint(hostAddress, 3724); //! Client port is always 3724 so this is safe
                 telnetSocketAsyncEventArgs.Completed += new EventHandler<SocketAsyncEventArgs>(telnetSocketAsyncEventArgs_Completed);
                 clientSocket.ConnectAsync(telnetSocketAsyncEventArgs);
+
+                textBoxAccountName.Text = realmlists[selectedItem].accountName;
+                textBoxAccountPassword.Text = realmlists[selectedItem].accountPassword;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 SetSelectedServerState(false);
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -325,9 +368,10 @@ namespace Realmlist_Changer
             {
                 SetSelectedServerState(e.SocketError == SocketError.Success && e.LastOperation == SocketAsyncOperation.Connect);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 SetSelectedServerState(false);
+                MessageBox.Show(ex.Message);
             }
         }
 
