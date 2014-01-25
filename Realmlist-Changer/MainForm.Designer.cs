@@ -40,8 +40,7 @@
             this.textBoxAccountPassword = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.buttonAdd = new System.Windows.Forms.Button();
-            this.buttonRemove = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.labelOnOrOff = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -52,7 +51,7 @@
             this.comboBoxItems.FormattingEnabled = true;
             this.comboBoxItems.Location = new System.Drawing.Point(6, 18);
             this.comboBoxItems.Name = "comboBoxItems";
-            this.comboBoxItems.Size = new System.Drawing.Size(338, 21);
+            this.comboBoxItems.Size = new System.Drawing.Size(268, 21);
             this.comboBoxItems.TabIndex = 6;
             this.comboBoxItems.SelectedIndexChanged += new System.EventHandler(this.comboBoxItems_SelectedIndexChanged);
             this.comboBoxItems.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.readonlyField_KeyPress);
@@ -76,9 +75,9 @@
             // 
             // buttonLaunchWow
             // 
-            this.buttonLaunchWow.Location = new System.Drawing.Point(289, 166);
+            this.buttonLaunchWow.Location = new System.Drawing.Point(286, 166);
             this.buttonLaunchWow.Name = "buttonLaunchWow";
-            this.buttonLaunchWow.Size = new System.Drawing.Size(99, 23);
+            this.buttonLaunchWow.Size = new System.Drawing.Size(95, 23);
             this.buttonLaunchWow.TabIndex = 10;
             this.buttonLaunchWow.Text = "Launch WoW!";
             this.buttonLaunchWow.UseVisualStyleBackColor = true;
@@ -104,7 +103,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(15, 171);
+            this.label1.Location = new System.Drawing.Point(14, 171);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(82, 13);
             this.label1.TabIndex = 10;
@@ -114,16 +113,16 @@
             // 
             this.textBoxAccountName.Location = new System.Drawing.Point(6, 44);
             this.textBoxAccountName.Name = "textBoxAccountName";
-            this.textBoxAccountName.Size = new System.Drawing.Size(169, 20);
+            this.textBoxAccountName.Size = new System.Drawing.Size(181, 20);
             this.textBoxAccountName.TabIndex = 8;
             this.textBoxAccountName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.readonlyField_KeyPress);
             // 
             // textBoxAccountPassword
             // 
-            this.textBoxAccountPassword.Location = new System.Drawing.Point(175, 44);
+            this.textBoxAccountPassword.Location = new System.Drawing.Point(188, 44);
             this.textBoxAccountPassword.Name = "textBoxAccountPassword";
             this.textBoxAccountPassword.PasswordChar = '*';
-            this.textBoxAccountPassword.Size = new System.Drawing.Size(169, 20);
+            this.textBoxAccountPassword.Size = new System.Drawing.Size(181, 20);
             this.textBoxAccountPassword.TabIndex = 9;
             this.textBoxAccountPassword.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.readonlyField_KeyPress);
             // 
@@ -142,8 +141,7 @@
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.buttonAdd);
-            this.groupBox3.Controls.Add(this.buttonRemove);
+            this.groupBox3.Controls.Add(this.button1);
             this.groupBox3.Controls.Add(this.comboBoxItems);
             this.groupBox3.Controls.Add(this.textBoxAccountPassword);
             this.groupBox3.Controls.Add(this.textBoxAccountName);
@@ -154,31 +152,20 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Realmlists";
             // 
-            // buttonAdd
+            // button1
             // 
-            this.buttonAdd.Location = new System.Drawing.Point(344, 18);
-            this.buttonAdd.Name = "buttonAdd";
-            this.buttonAdd.Size = new System.Drawing.Size(25, 22);
-            this.buttonAdd.TabIndex = 13;
-            this.buttonAdd.Text = "+";
-            this.buttonAdd.UseVisualStyleBackColor = true;
-            this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
-            // 
-            // buttonRemove
-            // 
-            this.buttonRemove.Location = new System.Drawing.Point(344, 43);
-            this.buttonRemove.Name = "buttonRemove";
-            this.buttonRemove.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.buttonRemove.Size = new System.Drawing.Size(25, 22);
-            this.buttonRemove.TabIndex = 12;
-            this.buttonRemove.Text = "-";
-            this.buttonRemove.UseVisualStyleBackColor = true;
-            this.buttonRemove.Click += new System.EventHandler(this.buttonRemove_Click);
+            this.button1.Location = new System.Drawing.Point(274, 17);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(95, 23);
+            this.button1.TabIndex = 15;
+            this.button1.Text = "Add or remove";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.buttonAddOrRemove_Click);
             // 
             // labelOnOrOff
             // 
             this.labelOnOrOff.AutoSize = true;
-            this.labelOnOrOff.Location = new System.Drawing.Point(91, 171);
+            this.labelOnOrOff.Location = new System.Drawing.Point(90, 171);
             this.labelOnOrOff.Name = "labelOnOrOff";
             this.labelOnOrOff.Size = new System.Drawing.Size(63, 13);
             this.labelOnOrOff.TabIndex = 14;
@@ -188,10 +175,10 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(402, 197);
-            this.Controls.Add(this.labelOnOrOff);
+            this.ClientSize = new System.Drawing.Size(402, 199);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.labelOnOrOff);
             this.Controls.Add(this.buttonLaunchWow);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -224,9 +211,8 @@
         private System.Windows.Forms.TextBox textBoxAccountPassword;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.Button buttonAdd;
-        private System.Windows.Forms.Button buttonRemove;
         private System.Windows.Forms.Label labelOnOrOff;
+        private System.Windows.Forms.Button button1;
     }
 }
 

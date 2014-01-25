@@ -2,9 +2,6 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Realmlist_Changer.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="SavedItems" Type="System.String" Scope="User">
-      <Value Profile="(Default)">127.0.0.1;</Value>
-    </Setting>
     <Setting Name="RealmlistDir" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
@@ -13,12 +10,6 @@
     </Setting>
     <Setting Name="LastSelectedIndex" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">-1</Value>
-    </Setting>
-    <Setting Name="AccountPassword" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="AccountName" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="Entropy" Type="System.String" Scope="User">
       <Value Profile="(Default)" />

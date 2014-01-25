@@ -25,18 +25,6 @@ namespace Realmlist_Changer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("127.0.0.1;")]
-        public string SavedItems {
-            get {
-                return ((string)(this["SavedItems"]));
-            }
-            set {
-                this["SavedItems"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string RealmlistDir {
             get {
@@ -68,30 +56,6 @@ namespace Realmlist_Changer.Properties {
             }
             set {
                 this["LastSelectedIndex"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string AccountPassword {
-            get {
-                return ((string)(this["AccountPassword"]));
-            }
-            set {
-                this["AccountPassword"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string AccountName {
-            get {
-                return ((string)(this["AccountName"]));
-            }
-            set {
-                this["AccountName"] = value;
             }
         }
         
