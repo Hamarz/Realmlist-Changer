@@ -323,20 +323,25 @@ namespace Realmlist_Changer
 
             try
             {
-                IPAddress hostAddress = Dns.GetHostEntry(selectedItem).AddressList[0];
-                Socket clientSocket;
+                if (selectedItem != "127.0.0.1" && selectedItem != "localhost")
+                {
+                    IPAddress hostAddress = Dns.GetHostEntry(selectedItem).AddressList[0];
+                    Socket clientSocket;
 
-                if (hostAddress.AddressFamily == AddressFamily.InterNetwork)
-                    clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                else if (hostAddress.AddressFamily == AddressFamily.InterNetworkV6)
-                    clientSocket = new Socket(AddressFamily.InterNetworkV6, SocketType.Stream, ProtocolType.Tcp);
+                    if (hostAddress.AddressFamily == AddressFamily.InterNetwork)
+                        clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                    else if (hostAddress.AddressFamily == AddressFamily.InterNetworkV6)
+                        clientSocket = new Socket(AddressFamily.InterNetworkV6, SocketType.Stream, ProtocolType.Tcp);
+                    else
+                        return;
+
+                    SocketAsyncEventArgs telnetSocketAsyncEventArgs = new SocketAsyncEventArgs();
+                    telnetSocketAsyncEventArgs.RemoteEndPoint = new IPEndPoint(hostAddress, 3724); //! Client port is always 3724 so this is safe
+                    telnetSocketAsyncEventArgs.Completed += new EventHandler<SocketAsyncEventArgs>(telnetSocketAsyncEventArgs_Completed);
+                    clientSocket.ConnectAsync(telnetSocketAsyncEventArgs);
+                }
                 else
-                    return;
-
-                SocketAsyncEventArgs telnetSocketAsyncEventArgs = new SocketAsyncEventArgs();
-                telnetSocketAsyncEventArgs.RemoteEndPoint = new IPEndPoint(hostAddress, 3724); //! Client port is always 3724 so this is safe
-                telnetSocketAsyncEventArgs.Completed += new EventHandler<SocketAsyncEventArgs>(telnetSocketAsyncEventArgs_Completed);
-                clientSocket.ConnectAsync(telnetSocketAsyncEventArgs);
+                    SetSelectedServerState(Process.GetProcessesByName("worldserver").Length > 0);
 
                 textBoxAccountName.Text = realmlists[selectedItem].accountName;
                 textBoxAccountPassword.Text = realmlists[selectedItem].accountPassword;
