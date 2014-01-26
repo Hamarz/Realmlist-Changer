@@ -1,6 +1,6 @@
 ﻿namespace Realmlist_Changer
 {
-    partial class AddRealmlistForm
+    partial class ManageRealmlistsForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,12 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddRealmlistForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ManageRealmlistsForm));
             this.textBoxAccountPassword = new System.Windows.Forms.TextBox();
             this.textBoxAccountName = new System.Windows.Forms.TextBox();
-            this.textBoxRealmlist = new System.Windows.Forms.TextBox();
             this.buttonContinue = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
+            this.comboBoxItems = new System.Windows.Forms.ComboBox();
+            this.buttonDelete = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // textBoxAccountPassword
@@ -50,13 +51,6 @@
             this.textBoxAccountName.Name = "textBoxAccountName";
             this.textBoxAccountName.Size = new System.Drawing.Size(169, 20);
             this.textBoxAccountName.TabIndex = 1;
-            // 
-            // textBoxRealmlist
-            // 
-            this.textBoxRealmlist.Location = new System.Drawing.Point(12, 12);
-            this.textBoxRealmlist.Name = "textBoxRealmlist";
-            this.textBoxRealmlist.Size = new System.Drawing.Size(338, 20);
-            this.textBoxRealmlist.TabIndex = 0;
             // 
             // buttonContinue
             // 
@@ -78,23 +72,42 @@
             this.buttonCancel.UseVisualStyleBackColor = true;
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
-            // AddRealmlistForm
+            // comboBoxItems
+            // 
+            this.comboBoxItems.FormattingEnabled = true;
+            this.comboBoxItems.Location = new System.Drawing.Point(12, 11);
+            this.comboBoxItems.Name = "comboBoxItems";
+            this.comboBoxItems.Size = new System.Drawing.Size(263, 21);
+            this.comboBoxItems.TabIndex = 5;
+            // 
+            // buttonDelete
+            // 
+            this.buttonDelete.Location = new System.Drawing.Point(275, 10);
+            this.buttonDelete.Name = "buttonDelete";
+            this.buttonDelete.Size = new System.Drawing.Size(75, 23);
+            this.buttonDelete.TabIndex = 6;
+            this.buttonDelete.Text = "Delete";
+            this.buttonDelete.UseVisualStyleBackColor = true;
+            this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
+            // 
+            // ManageRealmlistsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(365, 97);
+            this.Controls.Add(this.buttonDelete);
+            this.Controls.Add(this.comboBoxItems);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonContinue);
-            this.Controls.Add(this.textBoxRealmlist);
             this.Controls.Add(this.textBoxAccountPassword);
             this.Controls.Add(this.textBoxAccountName);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
-            this.Name = "AddRealmlistForm";
+            this.Name = "ManageRealmlistsForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Add a new realmlist";
-            this.Load += new System.EventHandler(this.AddRealmlistForm_Load);
+            this.Text = "Manage realmlists";
+            this.Load += new System.EventHandler(this.ManageRealmlistsForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -104,8 +117,9 @@
 
         private System.Windows.Forms.TextBox textBoxAccountPassword;
         private System.Windows.Forms.TextBox textBoxAccountName;
-        private System.Windows.Forms.TextBox textBoxRealmlist;
         private System.Windows.Forms.Button buttonContinue;
         private System.Windows.Forms.Button buttonCancel;
+        private System.Windows.Forms.ComboBox comboBoxItems;
+        private System.Windows.Forms.Button buttonDelete;
     }
 }

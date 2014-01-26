@@ -293,8 +293,8 @@ namespace Realmlist_Changer
 
         private void buttonAddOrRemove_Click(object sender, EventArgs e)
         {
-            using (AddRealmlistForm addRealmlistForm = new AddRealmlistForm())
-                addRealmlistForm.ShowDialog(this);
+            using (ManageRealmlistsForm ManageRealmlistsForm = new ManageRealmlistsForm())
+                ManageRealmlistsForm.ShowDialog(this);
         }
 
         private void buttonSearchWowDirectory_Click(object sender, EventArgs e)

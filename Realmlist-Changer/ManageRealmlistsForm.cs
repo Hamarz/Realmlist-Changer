@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace Realmlist_Changer
 {
-    public partial class AddRealmlistForm : Form
+    public partial class ManageRealmlistsForm : Form
     {
         private const int EM_SETCUEBANNER = 0x1501;
         private Dictionary<string /* realmlist */, Account /* accountInfo */> realmlists = new Dictionary<string, Account>();
@@ -19,19 +19,24 @@ namespace Realmlist_Changer
         [DllImport("user32.dll", CharSet = CharSet.Auto)]
         private static extern Int32 SendMessage(IntPtr hWnd, int msg, int wParam, [MarshalAs(UnmanagedType.LPWStr)]string lParam);
 
-        public AddRealmlistForm()
+        public ManageRealmlistsForm()
         {
             InitializeComponent();
         }
 
-        private void AddRealmlistForm_Load(object sender, EventArgs e)
+        private void ManageRealmlistsForm_Load(object sender, EventArgs e)
         {
             realmlists = ((MainForm)Owner).Realmlists; //! Has to be called in Load event, otherwise Owner is NULL
 
-            //! Set the placeholder text
-            SendMessage(textBoxRealmlist.Handle, EM_SETCUEBANNER, 0, "Realmlist of the server");
+            foreach (string realmlist in realmlists.Keys)
+                comboBoxItems.Items.Add(realmlist);
+
+            //! Set the placeholder text - sadly doesn't work for realmlists
             SendMessage(textBoxAccountName.Handle, EM_SETCUEBANNER, 0, "Account name");
             SendMessage(textBoxAccountPassword.Handle, EM_SETCUEBANNER, 0, "Account password");
+
+            if (comboBoxItems.Items.Count > 0)
+                comboBoxItems.SelectedIndex = 0;
 
             //! Focus on the continue button so the realmlist textbox placeholder text is visible
             buttonContinue.Select();
@@ -39,7 +44,13 @@ namespace Realmlist_Changer
 
         private void buttonContinue_Click(object sender, EventArgs e)
         {
-            AddRealmlistErrors error = ((MainForm)Owner).AddRealmlist(textBoxRealmlist.Text, new Account(textBoxAccountName.Text, textBoxAccountPassword.Text));
+            if (String.IsNullOrWhiteSpace(comboBoxItems.Text) || String.IsNullOrWhiteSpace(textBoxAccountName.Text) || String.IsNullOrWhiteSpace(textBoxAccountPassword.Text))
+            {
+                MessageBox.Show("All fields must be filled!", "Not all fields are filled!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            AddRealmlistErrors error = ((MainForm)Owner).AddRealmlist(comboBoxItems.Text, new Account(textBoxAccountName.Text, textBoxAccountPassword.Text));
 
             switch (error)
             {
@@ -61,6 +72,17 @@ namespace Realmlist_Changer
         private void buttonCancel_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void buttonDelete_Click(object sender, EventArgs e)
+        {
+            if (comboBoxItems.SelectedIndex == -1)
+            {
+                MessageBox.Show("There is no item selected!", "Nothing selected!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+
         }
     }
 }
