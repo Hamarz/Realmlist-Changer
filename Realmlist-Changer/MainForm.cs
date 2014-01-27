@@ -30,6 +30,15 @@ namespace Realmlist_Changer
         AddRealmlistErrorInvalidAccountInfo = 3,
     }
 
+    public enum ChangeRealmlistErrors
+    {
+        ChangeRealmlistErrorNone = 0,
+        ChangeRealmlistErrorNothingChanged = 1,
+        ChangeRealmlistErrorInvalidRealmlist = 2,
+        ChangeRealmlistErrorInvalidAccountInfo = 3,
+        ChangeRealmlistErrorRealmlistNotFound = 4,
+    }
+
     public partial class MainForm : Form
     {
         private const int EM_SETCUEBANNER = 0x1501;
@@ -312,6 +321,9 @@ namespace Realmlist_Changer
 
         private void comboBoxItems_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (comboBoxItems.SelectedIndex == -1)
+                return;
+
             string selectedItem = comboBoxItems.SelectedItem.ToString();
 
             if (!realmlists.ContainsKey(selectedItem))
@@ -406,6 +418,27 @@ namespace Realmlist_Changer
             comboBoxItems.Items.Add(realmlist);
             comboBoxItems.SelectedIndex = comboBoxItems.Items.Count - 1; //! Also sets account info in event
             return AddRealmlistErrors.AddRealmlistErrorNone;
+        }
+
+        public ChangeRealmlistErrors ChangeRealmlist(string realmlist, Account account)
+        {
+            if (!realmlists.ContainsKey(realmlist))
+                return ChangeRealmlistErrors.ChangeRealmlistErrorRealmlistNotFound;
+
+            if (String.IsNullOrWhiteSpace(account.accountName) || String.IsNullOrWhiteSpace(account.accountPassword))
+                return ChangeRealmlistErrors.ChangeRealmlistErrorInvalidAccountInfo;
+
+            if (realmlists[realmlist].accountName == account.accountName && realmlists[realmlist].accountPassword == account.accountPassword)
+                return ChangeRealmlistErrors.ChangeRealmlistErrorNothingChanged;
+
+            if (String.IsNullOrWhiteSpace(realmlist))
+                return ChangeRealmlistErrors.ChangeRealmlistErrorInvalidRealmlist;
+
+            realmlists.Remove(realmlist);
+            realmlists.Add(realmlist, account);
+            comboBoxItems.SelectedIndex = -1;
+            comboBoxItems.SelectedIndex = comboBoxItems.Items.Count - 1; //! Also sets account info in selected index changed event
+            return ChangeRealmlistErrors.ChangeRealmlistErrorNone;
         }
 
         public void RemoveRealmlist(string realmlist)

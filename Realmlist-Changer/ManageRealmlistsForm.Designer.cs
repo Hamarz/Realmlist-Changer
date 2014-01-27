@@ -35,6 +35,7 @@
             this.comboBoxItems = new System.Windows.Forms.ComboBox();
             this.buttonDelete = new System.Windows.Forms.Button();
             this.buttonAdd = new System.Windows.Forms.Button();
+            this.buttonSave = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // textBoxAccountPassword
@@ -75,26 +76,37 @@
             this.buttonDelete.Location = new System.Drawing.Point(294, 64);
             this.buttonDelete.Name = "buttonDelete";
             this.buttonDelete.Size = new System.Drawing.Size(56, 23);
-            this.buttonDelete.TabIndex = 5;
+            this.buttonDelete.TabIndex = 6;
             this.buttonDelete.Text = "Delete";
             this.buttonDelete.UseVisualStyleBackColor = true;
             this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
             // 
             // buttonAdd
             // 
-            this.buttonAdd.Location = new System.Drawing.Point(245, 64);
+            this.buttonAdd.Location = new System.Drawing.Point(238, 64);
             this.buttonAdd.Name = "buttonAdd";
-            this.buttonAdd.Size = new System.Drawing.Size(49, 23);
-            this.buttonAdd.TabIndex = 4;
+            this.buttonAdd.Size = new System.Drawing.Size(56, 23);
+            this.buttonAdd.TabIndex = 5;
             this.buttonAdd.Text = "Add";
             this.buttonAdd.UseVisualStyleBackColor = true;
             this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
+            // 
+            // buttonSave
+            // 
+            this.buttonSave.Location = new System.Drawing.Point(181, 64);
+            this.buttonSave.Name = "buttonSave";
+            this.buttonSave.Size = new System.Drawing.Size(56, 23);
+            this.buttonSave.TabIndex = 4;
+            this.buttonSave.Text = "Save";
+            this.buttonSave.UseVisualStyleBackColor = true;
+            this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
             // 
             // ManageRealmlistsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(365, 97);
+            this.Controls.Add(this.buttonSave);
             this.Controls.Add(this.buttonAdd);
             this.Controls.Add(this.buttonDelete);
             this.Controls.Add(this.comboBoxItems);
@@ -122,5 +134,6 @@
         private System.Windows.Forms.ComboBox comboBoxItems;
         private System.Windows.Forms.Button buttonDelete;
         private System.Windows.Forms.Button buttonAdd;
+        private System.Windows.Forms.Button buttonSave;
     }
 }
