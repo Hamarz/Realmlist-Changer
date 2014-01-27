@@ -191,11 +191,15 @@ namespace Realmlist_Changer
                             Thread.Sleep(30);
                         }
 
+                        //! Login to account
+                        PostMessage(process.MainWindowHandle, WM_KEYUP, new IntPtr(VK_RETURN), IntPtr.Zero);
                         PostMessage(process.MainWindowHandle, WM_KEYDOWN, new IntPtr(VK_RETURN), IntPtr.Zero);
 
+                        //! Login to char
                         if (checkBoxLoginToChar.Checked)
                         {
-                            Thread.Sleep(2500);
+                            Thread.Sleep(1500);
+                            PostMessage(process.MainWindowHandle, WM_KEYUP, new IntPtr(VK_RETURN), IntPtr.Zero);
                             PostMessage(process.MainWindowHandle, WM_KEYDOWN, new IntPtr(VK_RETURN), IntPtr.Zero);
                         }
 
