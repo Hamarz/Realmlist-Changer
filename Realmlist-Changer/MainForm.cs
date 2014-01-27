@@ -117,8 +117,8 @@ namespace Realmlist_Changer
 
             //! Has to be called after xml loading
             comboBoxItems.SelectedIndex = Settings.Default.LastSelectedIndex;
-            textBoxAccountName.Text = comboBoxItems.SelectedIndex != -1 ? realmlists[comboBoxItems.SelectedItem.ToString()].accountName : String.Empty;
-            textBoxAccountPassword.Text = realmlists[comboBoxItems.SelectedItem.ToString()].accountPassword; //! Already decrypted
+            textBoxAccountName.Text = comboBoxItems.SelectedIndex != -1 ? realmlists[comboBoxItems.Text].accountName : String.Empty;
+            textBoxAccountPassword.Text = comboBoxItems.SelectedIndex != -1 ? GetDecryptedPassword(realmlists[comboBoxItems.Text].accountPassword) : String.Empty;
         }
 
         private void buttonSearchDirectory_Click(object sender, EventArgs e)
@@ -132,33 +132,6 @@ namespace Realmlist_Changer
 
             if (openFileDialog.ShowDialog() == DialogResult.OK)
                 textBoxRealmlistFile.Text = openFileDialog.FileName;
-        }
-
-        private void buttonAddItem_Click(object sender, EventArgs e)
-        {
-            if (comboBoxItems.Text == String.Empty || String.IsNullOrWhiteSpace(comboBoxItems.Text))
-            {
-                MessageBox.Show("The add item text field was left empty!", "Something went wrong!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            if (comboBoxItems.Text.Contains(" "))
-            {
-                MessageBox.Show("The add item text field may not contain any whitespaces!", "Something went wrong!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            foreach (string item in comboBoxItems.Items)
-            {
-                if (item == comboBoxItems.Text)
-                {
-                    MessageBox.Show("The item already exists!", "Something went wrong!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-            }
-
-            int selectedIndex = comboBoxItems.Items.Add(comboBoxItems.Text);
-            comboBoxItems.SelectedIndex = selectedIndex;
         }
 
         private void buttonLaunchWow_Click(object sender, EventArgs e)
@@ -446,7 +419,7 @@ namespace Realmlist_Changer
             realmlists.Remove(realmlist);
             realmlists.Add(realmlist, account);
             comboBoxItems.SelectedIndex = -1;
-            comboBoxItems.SelectedIndex = comboBoxItems.Items.Count - 1; //! Also sets account info in selected index changed event
+            comboBoxItems.SelectedIndex = comboBoxItems.Items.IndexOf(realmlist);
             return ChangeRealmlistErrors.ChangeRealmlistErrorNone;
         }
 
