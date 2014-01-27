@@ -57,6 +57,7 @@ namespace Realmlist_Changer
         private Dictionary<string /* realmlist */, Account /* accountInfo */> realmlists = new Dictionary<string, Account>();
         private string xmlDir = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\Realmlist-Changer\";
         private string xmlDirFile = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\Realmlist-Changer\realmlist-changer.xml";
+        private Socket clientSocket = null;
 
         public Dictionary<string, Account> Realmlists
         {
@@ -158,6 +159,8 @@ namespace Realmlist_Changer
             {
                 Process process = Process.Start(textBoxWowFile.Text);
 
+                //! Only attempt to login to the account page (and possibly character if checkbox is checked) if te
+                //! acc info is actually given.
                 if (String.IsNullOrWhiteSpace(textBoxAccountName.Text) || String.IsNullOrWhiteSpace(textBoxAccountPassword.Text))
                     return;
 
@@ -318,6 +321,9 @@ namespace Realmlist_Changer
             if (!realmlists.ContainsKey(selectedItem))
                 return;
 
+            if (clientSocket != null)
+                clientSocket.Close();
+
             SetTextOfControl(labelOnOrOff, "<connecting...>");
             labelOnOrOff.ForeColor = Color.Black;
             labelOnOrOff.Update();
@@ -327,7 +333,6 @@ namespace Realmlist_Changer
                 if (selectedItem != "127.0.0.1" && selectedItem != "localhost")
                 {
                     IPAddress hostAddress = Dns.GetHostEntry(selectedItem).AddressList[0];
-                    Socket clientSocket;
 
                     if (hostAddress.AddressFamily == AddressFamily.InterNetwork)
                         clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
