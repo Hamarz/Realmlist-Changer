@@ -121,8 +121,16 @@ namespace Realmlist_Changer
             if (comboBoxItems.Items.Count >= Settings.Default.LastSelectedIndex)
                 comboBoxItems.SelectedIndex = Settings.Default.LastSelectedIndex;
 
-            textBoxAccountName.Text = comboBoxItems.SelectedIndex != -1 ? realmlists[comboBoxItems.Text].accountName : String.Empty;
-            textBoxAccountPassword.Text = realmlists[comboBoxItems.Text].accountPassword; //! Already decrypted
+            if (comboBoxItems.SelectedIndex != -1 && realmlists.ContainsKey(comboBoxItems.Text))
+            {
+                textBoxAccountName.Text = realmlists[comboBoxItems.Text].accountName;
+                textBoxAccountPassword.Text = realmlists[comboBoxItems.Text].accountPassword; //! Already decrypted
+            }
+            else
+            {
+                textBoxAccountName.Text = String.Empty;
+                textBoxAccountPassword.Text = String.Empty; //! Already decrypted
+            }
         }
 
         private void buttonSearchDirectory_Click(object sender, EventArgs e)
