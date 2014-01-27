@@ -1,8 +1,8 @@
 Realmlist-Changer
 =================
 
-Very simple changer and manager for your world of warcraft realmlist (written in C# using WinForms)
+Manager for world of warcraft realms to make it easier on the user to connect to several realmlists (private servers) at the same time. Allows auto login with account info if entered.
 
 Images
 ------
-![Image](http://i.imgur.com/73BJmn3.png)
+![Image](http://i.imgur.com/y0JYNTK.png)
