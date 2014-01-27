@@ -116,7 +116,9 @@ namespace Realmlist_Changer
             }
 
             //! Has to be called after xml loading
-            comboBoxItems.SelectedIndex = Settings.Default.LastSelectedIndex;
+            if (comboBoxItems.Items.Count >= Settings.Default.LastSelectedIndex)
+                comboBoxItems.SelectedIndex = Settings.Default.LastSelectedIndex;
+
             textBoxAccountName.Text = comboBoxItems.SelectedIndex != -1 ? realmlists[comboBoxItems.Text].accountName : String.Empty;
             textBoxAccountPassword.Text = comboBoxItems.SelectedIndex != -1 ? GetDecryptedPassword(realmlists[comboBoxItems.Text].accountPassword) : String.Empty;
         }
