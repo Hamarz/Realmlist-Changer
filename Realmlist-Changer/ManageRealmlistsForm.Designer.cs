@@ -70,6 +70,7 @@
             this.comboBoxItems.Name = "comboBoxItems";
             this.comboBoxItems.Size = new System.Drawing.Size(338, 21);
             this.comboBoxItems.TabIndex = 0;
+            this.comboBoxItems.SelectedIndexChanged += new System.EventHandler(this.comboBoxItems_SelectedIndexChanged);
             // 
             // buttonDelete
             // 

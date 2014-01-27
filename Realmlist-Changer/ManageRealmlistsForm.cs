@@ -135,5 +135,19 @@ namespace Realmlist_Changer
                     break;
             }
         }
+
+        private void comboBoxItems_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboBoxItems.SelectedIndex == -1)
+                return;
+
+            string selectedItem = comboBoxItems.SelectedItem.ToString();
+
+            if (!realmlists.ContainsKey(selectedItem))
+                return;
+
+            textBoxAccountName.Text = realmlists[selectedItem].accountName;
+            textBoxAccountPassword.Text = realmlists[selectedItem].accountPassword;
+        }
     }
 }
