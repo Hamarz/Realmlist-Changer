@@ -343,7 +343,7 @@ namespace Realmlist_Changer
                 }
                 else
                     //! If server is localhost, check if worldserver is running
-                    SetSelectedServerState(Process.GetProcessesByName("worldserver").Length > 0);
+                    SetSelectedServerState(Process.GetProcessesByName("worldserver").Length > 0 && Process.GetProcessesByName("authserver").Length > 0);
 
                 textBoxAccountName.Text = realmlists[selectedItem].accountName;
                 textBoxAccountPassword.Text = realmlists[selectedItem].accountPassword;
