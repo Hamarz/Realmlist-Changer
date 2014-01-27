@@ -103,6 +103,7 @@ namespace Realmlist_Changer
                                         break;
                                     case "accountpassword":
                                         account.accountPassword = GetDecryptedPassword(reader.ReadString());
+
                                         comboBoxItems.Items.Add(realmlist);
                                         realmlists.Add(realmlist, account);
                                         realmlist = String.Empty;

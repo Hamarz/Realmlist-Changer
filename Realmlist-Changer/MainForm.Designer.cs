@@ -168,9 +168,9 @@
             this.labelOnOrOff.AutoSize = true;
             this.labelOnOrOff.Location = new System.Drawing.Point(90, 171);
             this.labelOnOrOff.Name = "labelOnOrOff";
-            this.labelOnOrOff.Size = new System.Drawing.Size(63, 13);
+            this.labelOnOrOff.Size = new System.Drawing.Size(54, 13);
             this.labelOnOrOff.TabIndex = 14;
-            this.labelOnOrOff.Text = "<unknown>";
+            this.labelOnOrOff.Text = "<nothing>";
             // 
             // checkBoxLoginToChar
             // 
