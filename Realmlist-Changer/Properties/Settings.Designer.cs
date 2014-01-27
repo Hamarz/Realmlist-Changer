@@ -70,5 +70,17 @@ namespace Realmlist_Changer.Properties {
                 this["Entropy"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool LoginToChar {
+            get {
+                return ((bool)(this["LoginToChar"]));
+            }
+            set {
+                this["LoginToChar"] = value;
+            }
+        }
     }
 }

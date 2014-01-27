@@ -78,6 +78,7 @@ namespace Realmlist_Changer
             SendMessage(textBoxAccountPassword.Handle, EM_SETCUEBANNER, 0, "Account password");
             textBoxRealmlistFile.Text = Settings.Default.RealmlistDir;
             textBoxWowFile.Text = Settings.Default.WorldOfWarcraftDir;
+            checkBoxLoginToChar.Checked = Settings.Default.LoginToChar;
 
             if (File.Exists(xmlDirFile))
             {
@@ -218,6 +219,13 @@ namespace Realmlist_Changer
                         }
 
                         PostMessage(process.MainWindowHandle, WM_KEYDOWN, new IntPtr(VK_RETURN), IntPtr.Zero);
+
+                        if (checkBoxLoginToChar.Checked)
+                        {
+                            Thread.Sleep(2500);
+                            PostMessage(process.MainWindowHandle, WM_KEYDOWN, new IntPtr(VK_RETURN), IntPtr.Zero);
+                        }
+
                         Thread.CurrentThread.Abort();
                     }
                     catch
@@ -237,6 +245,7 @@ namespace Realmlist_Changer
             Settings.Default.RealmlistDir = textBoxRealmlistFile.Text;
             Settings.Default.WorldOfWarcraftDir = textBoxWowFile.Text;
             Settings.Default.LastSelectedIndex = comboBoxItems.SelectedIndex;
+            Settings.Default.LoginToChar = checkBoxLoginToChar.Checked;
 
             if (!Directory.Exists(xmlDir))
                 Directory.CreateDirectory(xmlDir);

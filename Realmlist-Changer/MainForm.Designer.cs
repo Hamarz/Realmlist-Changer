@@ -42,6 +42,7 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.button1 = new System.Windows.Forms.Button();
             this.labelOnOrOff = new System.Windows.Forms.Label();
+            this.checkBoxLoginToChar = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.SuspendLayout();
@@ -171,11 +172,23 @@
             this.labelOnOrOff.TabIndex = 14;
             this.labelOnOrOff.Text = "<unknown>";
             // 
+            // checkBoxLoginToChar
+            // 
+            this.checkBoxLoginToChar.AutoSize = true;
+            this.checkBoxLoginToChar.Location = new System.Drawing.Point(168, 170);
+            this.checkBoxLoginToChar.Name = "checkBoxLoginToChar";
+            this.checkBoxLoginToChar.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.checkBoxLoginToChar.Size = new System.Drawing.Size(112, 17);
+            this.checkBoxLoginToChar.TabIndex = 15;
+            this.checkBoxLoginToChar.Text = "Login to character";
+            this.checkBoxLoginToChar.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(402, 199);
+            this.Controls.Add(this.checkBoxLoginToChar);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.labelOnOrOff);
@@ -213,6 +226,7 @@
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Label labelOnOrOff;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.CheckBox checkBoxLoginToChar;
     }
 }
 
