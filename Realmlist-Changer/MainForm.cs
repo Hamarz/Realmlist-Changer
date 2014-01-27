@@ -108,7 +108,7 @@ namespace Realmlist_Changer
             //! Has to be called after xml loading
             comboBoxItems.SelectedIndex = Settings.Default.LastSelectedIndex;
             textBoxAccountName.Text = comboBoxItems.SelectedIndex != -1 ? realmlists[comboBoxItems.SelectedItem.ToString()].accountName : String.Empty;
-            textBoxAccountPassword.Text = comboBoxItems.SelectedIndex != -1 ? GetDecryptedPassword(realmlists[comboBoxItems.SelectedItem.ToString()].accountPassword) : String.Empty;
+            textBoxAccountPassword.Text = realmlists[comboBoxItems.SelectedItem.ToString()].accountPassword; //! Already decrypted
         }
 
         private void buttonSearchDirectory_Click(object sender, EventArgs e)
@@ -341,6 +341,7 @@ namespace Realmlist_Changer
                     clientSocket.ConnectAsync(telnetSocketAsyncEventArgs);
                 }
                 else
+                    //! If server is localhost, check if worldserver is running
                     SetSelectedServerState(Process.GetProcessesByName("worldserver").Length > 0);
 
                 textBoxAccountName.Text = realmlists[selectedItem].accountName;
@@ -405,6 +406,22 @@ namespace Realmlist_Changer
             comboBoxItems.Items.Add(realmlist);
             comboBoxItems.SelectedIndex = comboBoxItems.Items.Count - 1; //! Also sets account info in event
             return AddRealmlistErrors.AddRealmlistErrorNone;
+        }
+
+        public void RemoveRealmlist(string realmlist)
+        {
+            if (!realmlists.ContainsKey(realmlist) || String.IsNullOrWhiteSpace(realmlist))
+                return;
+
+            realmlists.Remove(realmlist);
+            comboBoxItems.Items.RemoveAt(comboBoxItems.SelectedIndex);
+
+            if (comboBoxItems.Items.Count == 0)
+            {
+                comboBoxItems.Text = String.Empty;
+                textBoxAccountName.Text = String.Empty;
+                textBoxAccountPassword.Text = String.Empty;
+            }
         }
     }
 }

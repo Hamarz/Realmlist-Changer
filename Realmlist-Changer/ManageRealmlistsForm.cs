@@ -36,14 +36,41 @@ namespace Realmlist_Changer
             SendMessage(textBoxAccountPassword.Handle, EM_SETCUEBANNER, 0, "Account password");
 
             if (comboBoxItems.Items.Count > 0)
+            {
                 comboBoxItems.SelectedIndex = 0;
+                textBoxAccountName.Text = realmlists[comboBoxItems.Text].accountName;
+                textBoxAccountPassword.Text = realmlists[comboBoxItems.Text].accountPassword;
+            }
 
-            //! Focus on the continue button so the realmlist textbox placeholder text is visible
-            buttonContinue.Select();
+            //! Focus on the realmlis combobox
+            comboBoxItems.Select();
         }
 
-        private void buttonContinue_Click(object sender, EventArgs e)
+        private void buttonCancel_Click(object sender, EventArgs e)
         {
+            Close();
+        }
+
+        private void buttonDelete_Click(object sender, EventArgs e)
+        {
+            if (comboBoxItems.SelectedIndex == -1)
+            {
+                MessageBox.Show("There is no item selected!", "Nothing selected!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            ((MainForm)Owner).RemoveRealmlist(comboBoxItems.Text);
+            Close();
+        }
+
+        private void buttonAdd_Click(object sender, EventArgs e)
+        {
+            if (comboBoxItems.SelectedIndex != -1)
+            {
+                MessageBox.Show("There is already a realmlist selected!", "No realmlist may be selected!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             if (String.IsNullOrWhiteSpace(comboBoxItems.Text) || String.IsNullOrWhiteSpace(textBoxAccountName.Text) || String.IsNullOrWhiteSpace(textBoxAccountPassword.Text))
             {
                 MessageBox.Show("All fields must be filled!", "Not all fields are filled!", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -69,20 +96,14 @@ namespace Realmlist_Changer
             }
         }
 
-        private void buttonCancel_Click(object sender, EventArgs e)
+        private void ManageRealmlistsForm_KeyDown(object sender, KeyEventArgs e)
         {
-            Close();
-        }
-
-        private void buttonDelete_Click(object sender, EventArgs e)
-        {
-            if (comboBoxItems.SelectedIndex == -1)
+            switch (e.KeyCode)
             {
-                MessageBox.Show("There is no item selected!", "Nothing selected!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                case Keys.Escape:
+                    Close();
+                    break;
             }
-
-
         }
     }
 }
