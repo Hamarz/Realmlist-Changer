@@ -118,7 +118,7 @@ namespace Realmlist_Changer
             }
 
             //! Has to be called after xml loading
-            if (comboBoxItems.Items.Count >= Settings.Default.LastSelectedIndex)
+            if (comboBoxItems.Items.Count > Settings.Default.LastSelectedIndex)
                 comboBoxItems.SelectedIndex = Settings.Default.LastSelectedIndex;
 
             if (comboBoxItems.SelectedIndex != -1 && realmlists.ContainsKey(comboBoxItems.Text))
@@ -136,7 +136,7 @@ namespace Realmlist_Changer
         private void buttonSearchDirectory_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "Wtf files (*.wtf*)|*.wtf*";
+            openFileDialog.Filter = "Wtf files (*.wtf)|*.wtf";
             openFileDialog.FileName = "";
 
             if (textBoxRealmlistFile.Text != "" && Directory.Exists(textBoxRealmlistFile.Text))
@@ -308,7 +308,7 @@ namespace Realmlist_Changer
         private void buttonSearchWowDirectory_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "Exe files (*.exe*)|*.exe*";
+            openFileDialog.Filter = "Exe files (*.exe)|*.exe";
             openFileDialog.FileName = "";
 
             if (textBoxWowFile.Text != "" && Directory.Exists(textBoxWowFile.Text))
