@@ -87,8 +87,7 @@ namespace Realmlist_Changer
                 {
                     using (XmlTextReader reader = new XmlTextReader(stringReader))
                     {
-                        string realmlist = String.Empty;
-                        Account account = new Account(String.Empty, String.Empty);
+                        string realmlist = String.Empty, accountName = String.Empty, encryptedPassword = String.Empty;
 
                         while (reader.Read())
                         {
@@ -100,15 +99,16 @@ namespace Realmlist_Changer
                                         realmlist = reader["realmlist"];
                                         break;
                                     case "accountname":
-                                        account.accountName = reader.ReadString();
+                                        accountName = reader.ReadString();
                                         break;
                                     case "accountpassword":
-                                        account.accountPassword = GetDecryptedPassword(reader.ReadString());
+                                        encryptedPassword = reader.ReadString();
+                                        break;
+                                    case "entropy":
+                                        string accountPassword = GetDecryptedPassword(encryptedPassword, reader.ReadString());
 
                                         comboBoxItems.Items.Add(realmlist);
-                                        realmlists.Add(realmlist, account);
-                                        realmlist = String.Empty;
-                                        account = new Account(String.Empty, String.Empty);
+                                        realmlists.Add(realmlist, new Account(accountName, accountPassword));
                                         break;
                                 }
                             }
@@ -122,7 +122,7 @@ namespace Realmlist_Changer
                 comboBoxItems.SelectedIndex = Settings.Default.LastSelectedIndex;
 
             textBoxAccountName.Text = comboBoxItems.SelectedIndex != -1 ? realmlists[comboBoxItems.Text].accountName : String.Empty;
-            textBoxAccountPassword.Text = comboBoxItems.SelectedIndex != -1 ? GetDecryptedPassword(realmlists[comboBoxItems.Text].accountPassword) : String.Empty;
+            textBoxAccountPassword.Text = realmlists[comboBoxItems.Text].accountPassword; //! Already decrypted
         }
 
         private void buttonSearchDirectory_Click(object sender, EventArgs e)
@@ -253,9 +253,8 @@ namespace Realmlist_Changer
                     rng.GetBytes(buffer);
                     string salt = BitConverter.ToString(buffer);
                     rng.Dispose();
-                    Settings.Default.Entropy = salt;
                     writer.WriteElementString("accountpassword", acc.accountPassword.Length == 0 ? String.Empty : acc.accountPassword.ToSecureString().EncryptString(Encoding.Unicode.GetBytes(salt)));
-                    
+                    writer.WriteElementString("entropy", salt);
                     writer.WriteEndElement();
                 }
 
@@ -266,12 +265,12 @@ namespace Realmlist_Changer
             Settings.Default.Save();
         }
 
-        public string GetDecryptedPassword(string encryptedPassword)
+        public string GetDecryptedPassword(string encryptedPassword, string entropy)
         {
             string password = encryptedPassword;
 
             if (password.Length > 150)
-                password = password.DecryptString(Encoding.Unicode.GetBytes(Settings.Default.Entropy)).ToInsecureString();
+                password = password.DecryptString(Encoding.Unicode.GetBytes(entropy)).ToInsecureString();
 
             return password;
         }
