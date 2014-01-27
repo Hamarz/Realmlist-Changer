@@ -52,7 +52,7 @@
             this.comboBoxItems.FormattingEnabled = true;
             this.comboBoxItems.Location = new System.Drawing.Point(6, 18);
             this.comboBoxItems.Name = "comboBoxItems";
-            this.comboBoxItems.Size = new System.Drawing.Size(268, 21);
+            this.comboBoxItems.Size = new System.Drawing.Size(254, 21);
             this.comboBoxItems.TabIndex = 6;
             this.comboBoxItems.SelectedIndexChanged += new System.EventHandler(this.comboBoxItems_SelectedIndexChanged);
             this.comboBoxItems.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.readonlyField_KeyPress);
@@ -155,11 +155,11 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(274, 17);
+            this.button1.Location = new System.Drawing.Point(260, 17);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(95, 23);
+            this.button1.Size = new System.Drawing.Size(109, 23);
             this.button1.TabIndex = 15;
-            this.button1.Text = "Add or remove";
+            this.button1.Text = "Add/remove/edit";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.buttonAddOrRemove_Click);
             // 
