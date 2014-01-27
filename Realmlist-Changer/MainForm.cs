@@ -443,6 +443,8 @@ namespace Realmlist_Changer
                 textBoxAccountName.Text = String.Empty;
                 textBoxAccountPassword.Text = String.Empty;
             }
+            else
+                comboBoxItems.SelectedIndex = 0;
         }
     }
 }
