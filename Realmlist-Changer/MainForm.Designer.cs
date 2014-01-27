@@ -43,8 +43,14 @@
             this.button1 = new System.Windows.Forms.Button();
             this.labelOnOrOff = new System.Windows.Forms.Label();
             this.checkBoxLoginToChar = new System.Windows.Forms.CheckBox();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // comboBoxItems
@@ -76,7 +82,7 @@
             // 
             // buttonLaunchWow
             // 
-            this.buttonLaunchWow.Location = new System.Drawing.Point(286, 166);
+            this.buttonLaunchWow.Location = new System.Drawing.Point(286, 181);
             this.buttonLaunchWow.Name = "buttonLaunchWow";
             this.buttonLaunchWow.Size = new System.Drawing.Size(95, 23);
             this.buttonLaunchWow.TabIndex = 10;
@@ -104,7 +110,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(14, 171);
+            this.label1.Location = new System.Drawing.Point(14, 186);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(82, 13);
             this.label1.TabIndex = 10;
@@ -133,7 +139,7 @@
             this.groupBox1.Controls.Add(this.buttonSearchDirectory);
             this.groupBox1.Controls.Add(this.textBoxWowFile);
             this.groupBox1.Controls.Add(this.buttonSearchWowDirectory);
-            this.groupBox1.Location = new System.Drawing.Point(12, 12);
+            this.groupBox1.Location = new System.Drawing.Point(12, 27);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(376, 71);
             this.groupBox1.TabIndex = 12;
@@ -146,7 +152,7 @@
             this.groupBox3.Controls.Add(this.comboBoxItems);
             this.groupBox3.Controls.Add(this.textBoxAccountPassword);
             this.groupBox3.Controls.Add(this.textBoxAccountName);
-            this.groupBox3.Location = new System.Drawing.Point(12, 89);
+            this.groupBox3.Location = new System.Drawing.Point(12, 104);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(376, 71);
             this.groupBox3.TabIndex = 13;
@@ -166,7 +172,7 @@
             // labelOnOrOff
             // 
             this.labelOnOrOff.AutoSize = true;
-            this.labelOnOrOff.Location = new System.Drawing.Point(90, 171);
+            this.labelOnOrOff.Location = new System.Drawing.Point(90, 186);
             this.labelOnOrOff.Name = "labelOnOrOff";
             this.labelOnOrOff.Size = new System.Drawing.Size(54, 13);
             this.labelOnOrOff.TabIndex = 14;
@@ -175,7 +181,7 @@
             // checkBoxLoginToChar
             // 
             this.checkBoxLoginToChar.AutoSize = true;
-            this.checkBoxLoginToChar.Location = new System.Drawing.Point(168, 170);
+            this.checkBoxLoginToChar.Location = new System.Drawing.Point(168, 185);
             this.checkBoxLoginToChar.Name = "checkBoxLoginToChar";
             this.checkBoxLoginToChar.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.checkBoxLoginToChar.Size = new System.Drawing.Size(112, 17);
@@ -183,20 +189,63 @@
             this.checkBoxLoginToChar.Text = "Login to character";
             this.checkBoxLoginToChar.UseVisualStyleBackColor = true;
             // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem,
+            this.helpToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(402, 24);
+            this.menuStrip1.TabIndex = 16;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // fileToolStripMenuItem
+            // 
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.exitToolStripMenuItem});
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenuItem.Text = "File";
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            // 
+            // helpToolStripMenuItem
+            // 
+            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.aboutToolStripMenuItem1});
+            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.helpToolStripMenuItem.Text = "Help";
+            // 
+            // aboutToolStripMenuItem1
+            // 
+            this.aboutToolStripMenuItem1.Name = "aboutToolStripMenuItem1";
+            this.aboutToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.aboutToolStripMenuItem1.Text = "About";
+            this.aboutToolStripMenuItem1.Click += new System.EventHandler(this.aboutToolStripMenuItem1_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(402, 199);
+            this.ClientSize = new System.Drawing.Size(402, 211);
             this.Controls.Add(this.checkBoxLoginToChar);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.labelOnOrOff);
             this.Controls.Add(this.buttonLaunchWow);
             this.Controls.Add(this.label1);
+            this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
+            this.MainMenuStrip = this.menuStrip1;
             this.MaximizeBox = false;
             this.Name = "MainForm";
             this.Text = "Realmlist Changer";
@@ -206,6 +255,8 @@
             this.groupBox1.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -227,6 +278,11 @@
         private System.Windows.Forms.Label labelOnOrOff;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.CheckBox checkBoxLoginToChar;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem1;
     }
 }
 

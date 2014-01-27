@@ -451,5 +451,15 @@ namespace Realmlist_Changer
             else
                 comboBoxItems.SelectedIndex = 0;
         }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void aboutToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Realmlist-Changer @ 2014 Discover-", "About Realmlist-Changer", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
     }
 }
