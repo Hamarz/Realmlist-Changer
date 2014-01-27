@@ -67,7 +67,7 @@ namespace Realmlist_Changer
         {
             if (comboBoxItems.SelectedIndex != -1)
             {
-                MessageBox.Show("There is already a realmlist selected!", "No realmlist may be selected!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("This realmlist already exists!", "Realmlist must be unique!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
