@@ -14,7 +14,7 @@ namespace Realmlist_Changer
     public partial class ManageRealmlistsForm : Form
     {
         private const int EM_SETCUEBANNER = 0x1501;
-        private Dictionary<string /* realmlist */, Account /* accountInfo */> realmlists = new Dictionary<string, Account>();
+        private Dictionary<string /* realmlist */, Account /* account */> realmlists = new Dictionary<string, Account>();
 
         [DllImport("user32.dll", CharSet = CharSet.Auto)]
         private static extern Int32 SendMessage(IntPtr hWnd, int msg, int wParam, [MarshalAs(UnmanagedType.LPWStr)]string lParam);
@@ -71,7 +71,7 @@ namespace Realmlist_Changer
                 return;
             }
 
-            if (String.IsNullOrWhiteSpace(comboBoxItems.Text) || String.IsNullOrWhiteSpace(textBoxAccountName.Text) || String.IsNullOrWhiteSpace(textBoxAccountPassword.Text))
+            if (String.IsNullOrWhiteSpace(comboBoxItems.Text))
             {
                 MessageBox.Show("All fields must be filled!", "Not all fields are filled!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -86,9 +86,6 @@ namespace Realmlist_Changer
                     break;
                 case AddRealmlistErrors.AddRealmlistErrorInvalidRealmlist:
                     MessageBox.Show("This realmlist is incorrect!", "Incorrect realmlist!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    break;
-                case AddRealmlistErrors.AddRealmlistErrorInvalidAccountInfo:
-                    MessageBox.Show("This account info is incorrect!", "Incorrect account info!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     break;
                 case AddRealmlistErrors.AddRealmlistErrorNone:
                     Close();
@@ -126,9 +123,6 @@ namespace Realmlist_Changer
                     break;
                 case ChangeRealmlistErrors.ChangeRealmlistErrorInvalidRealmlist:
                     MessageBox.Show("This realmlist is incorrect!", "Incorrect realmlist!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    break;
-                case ChangeRealmlistErrors.ChangeRealmlistErrorInvalidAccountInfo:
-                    MessageBox.Show("This account info is incorrect!", "Incorrect account info!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     break;
                 case ChangeRealmlistErrors.ChangeRealmlistErrorNone:
                     Close();

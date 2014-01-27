@@ -27,7 +27,6 @@ namespace Realmlist_Changer
         AddRealmlistErrorNone = 0,
         AddRealmlistErrorAlreadyAdded = 1,
         AddRealmlistErrorInvalidRealmlist = 2,
-        AddRealmlistErrorInvalidAccountInfo = 3,
     }
 
     public enum ChangeRealmlistErrors
@@ -35,8 +34,7 @@ namespace Realmlist_Changer
         ChangeRealmlistErrorNone = 0,
         ChangeRealmlistErrorNothingChanged = 1,
         ChangeRealmlistErrorInvalidRealmlist = 2,
-        ChangeRealmlistErrorInvalidAccountInfo = 3,
-        ChangeRealmlistErrorRealmlistNotFound = 4,
+        ChangeRealmlistErrorRealmlistNotFound = 3,
     }
 
     public partial class MainForm : Form
@@ -54,7 +52,7 @@ namespace Realmlist_Changer
         [DllImport("user32.dll")]
         private static extern IntPtr SendMessage(IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam);
 
-        private Dictionary<string /* realmlist */, Account /* accountInfo */> realmlists = new Dictionary<string, Account>();
+        private Dictionary<string /* realmlist */, Account /* account */> realmlists = new Dictionary<string, Account>();
         private string xmlDir = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\Realmlist-Changer\";
         private string xmlDirFile = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\Realmlist-Changer\realmlist-changer.xml";
         private Socket clientSocket = null;
@@ -412,9 +410,6 @@ namespace Realmlist_Changer
             if (String.IsNullOrWhiteSpace(realmlist))
                 return AddRealmlistErrors.AddRealmlistErrorInvalidRealmlist;
 
-            if (String.IsNullOrWhiteSpace(account.accountName) || String.IsNullOrWhiteSpace(account.accountPassword))
-                return AddRealmlistErrors.AddRealmlistErrorInvalidAccountInfo;
-
             realmlists.Add(realmlist, account);
             comboBoxItems.Items.Add(realmlist);
             comboBoxItems.SelectedIndex = comboBoxItems.Items.Count - 1; //! Also sets account info in event
@@ -425,9 +420,6 @@ namespace Realmlist_Changer
         {
             if (!realmlists.ContainsKey(realmlist))
                 return ChangeRealmlistErrors.ChangeRealmlistErrorRealmlistNotFound;
-
-            if (String.IsNullOrWhiteSpace(account.accountName) || String.IsNullOrWhiteSpace(account.accountPassword))
-                return ChangeRealmlistErrors.ChangeRealmlistErrorInvalidAccountInfo;
 
             if (realmlists[realmlist].accountName == account.accountName && realmlists[realmlist].accountPassword == account.accountPassword)
                 return ChangeRealmlistErrors.ChangeRealmlistErrorNothingChanged;
