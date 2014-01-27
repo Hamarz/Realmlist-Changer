@@ -358,10 +358,9 @@ namespace Realmlist_Changer
                 textBoxAccountName.Text = realmlists[selectedItem].accountName;
                 textBoxAccountPassword.Text = realmlists[selectedItem].accountPassword;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 SetSelectedServerState(false);
-                MessageBox.Show(ex.Message);
             }
         }
 
@@ -371,10 +370,9 @@ namespace Realmlist_Changer
             {
                 SetSelectedServerState(e.SocketError == SocketError.Success && e.LastOperation == SocketAsyncOperation.Connect);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 SetSelectedServerState(false);
-                MessageBox.Show(ex.Message);
             }
         }
 
