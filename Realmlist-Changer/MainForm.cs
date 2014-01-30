@@ -167,7 +167,7 @@ namespace Realmlist_Changer
 
                 //! Only attempt to login to the account page (and possibly character if checkbox is checked) if te
                 //! acc info is actually given.
-                if (String.IsNullOrWhiteSpace(textBoxAccountName.Text) || String.IsNullOrWhiteSpace(textBoxAccountPassword.Text))
+                if (String.IsNullOrWhiteSpace(textBoxAccountName.Text) && String.IsNullOrWhiteSpace(textBoxAccountPassword.Text))
                     return;
 
                 Thread.Sleep(600);
@@ -195,24 +195,27 @@ namespace Realmlist_Changer
                         }
 
                         //! Switch to password field
-                        SendMessage(process.MainWindowHandle, WM_KEYDOWN, new IntPtr(VK_TAB), IntPtr.Zero);
-
-                        for (int i = 0; i < textBoxAccountPassword.Text.Length; i++)
+                        if (!String.IsNullOrWhiteSpace(textBoxAccountPassword.Text))
                         {
-                            SendMessage(process.MainWindowHandle, WM_CHAR, new IntPtr(textBoxAccountPassword.Text[i]), IntPtr.Zero);
-                            Thread.Sleep(30);
-                        }
+                            SendMessage(process.MainWindowHandle, WM_KEYDOWN, new IntPtr(VK_TAB), IntPtr.Zero);
 
-                        //! Login to account
-                        SendMessage(process.MainWindowHandle, WM_KEYUP, new IntPtr(VK_RETURN), IntPtr.Zero);
-                        SendMessage(process.MainWindowHandle, WM_KEYDOWN, new IntPtr(VK_RETURN), IntPtr.Zero);
+                            for (int i = 0; i < textBoxAccountPassword.Text.Length; i++)
+                            {
+                                SendMessage(process.MainWindowHandle, WM_CHAR, new IntPtr(textBoxAccountPassword.Text[i]), IntPtr.Zero);
+                                Thread.Sleep(30);
+                            }
 
-                        //! Login to char
-                        if (checkBoxLoginToChar.Checked)
-                        {
-                            Thread.Sleep(1500);
+                            //! Login to account
                             SendMessage(process.MainWindowHandle, WM_KEYUP, new IntPtr(VK_RETURN), IntPtr.Zero);
                             SendMessage(process.MainWindowHandle, WM_KEYDOWN, new IntPtr(VK_RETURN), IntPtr.Zero);
+
+                            //! Login to char
+                            if (checkBoxLoginToChar.Checked)
+                            {
+                                Thread.Sleep(1500);
+                                SendMessage(process.MainWindowHandle, WM_KEYUP, new IntPtr(VK_RETURN), IntPtr.Zero);
+                                SendMessage(process.MainWindowHandle, WM_KEYDOWN, new IntPtr(VK_RETURN), IntPtr.Zero);
+                            }
                         }
 
                         Thread.CurrentThread.Abort();
