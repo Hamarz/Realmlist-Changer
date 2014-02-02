@@ -5,4 +5,5 @@ Manager for world of warcraft realms to make it easier on the user to connect to
 
 Images
 ------
-![Image](http://i.imgur.com/y0JYNTK.png)
+![Image](http://i.imgur.com/eVqIHPK.png)
+![Image](http://i.imgur.com/wGivr2E.png)
