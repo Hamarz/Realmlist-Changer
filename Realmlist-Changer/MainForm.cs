@@ -363,6 +363,8 @@ namespace Realmlist_Changer
             catch (Exception)
             {
                 SetSelectedServerState(false);
+                textBoxAccountName.Text = String.Empty;
+                textBoxAccountPassword.Text = String.Empty;
             }
         }
 
