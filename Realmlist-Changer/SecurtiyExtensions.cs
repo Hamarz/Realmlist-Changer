@@ -9,7 +9,7 @@ namespace Realmlist_Changer
 {
     public static class SecurityExtensions
     {
-        public static string ToSHA1(this string str)
+        public static string ToSha1(this string str)
         {
             SHA1 sha1 = SHA1.Create();
             byte[] buffer = Encoding.ASCII.GetBytes(str);
