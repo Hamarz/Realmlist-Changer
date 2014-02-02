@@ -164,6 +164,19 @@ namespace Realmlist_Changer
             {
                 Process process = Process.Start(textBoxWowFile.Text);
 
+                //! If no exception occurred, delete the cache folder.
+                //! The reason this has its own try-catch block is because the logging in should not
+                //! be stopped if the directory removing threw an exception.
+                try
+                {
+                    DirectoryInfo dirInfo = new DirectoryInfo(Path.GetDirectoryName(textBoxWowFile.Text) + @"\Cache");
+                    dirInfo.Delete(true);
+                }
+                catch
+                {
+
+                }
+
                 //! Only attempt to login to the account page (and possibly character if checkbox is checked) if te
                 //! acc info is actually given.
                 if (String.IsNullOrWhiteSpace(textBoxAccountName.Text) && String.IsNullOrWhiteSpace(textBoxAccountPassword.Text))
